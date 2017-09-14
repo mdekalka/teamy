@@ -20,7 +20,8 @@ const userList = [
       large: 'https://randomuser.me/api/portraits/women/67.jpg',
       medium: 'https://randomuser.me/api/portraits/med/women/67.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/women/67.jpg'
-    }
+    },
+    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
     id: 2,
@@ -43,7 +44,8 @@ const userList = [
       large: 'https://randomuser.me/api/portraits/men/52.jpg',
       medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
-    }
+    },
+    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   }
 ]
 

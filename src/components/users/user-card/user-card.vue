@@ -1,14 +1,20 @@
 <template>
   <div class="user-card">
     <div class="user-card-header">
-      <img :src="user.picture.large" alt="user avatar" />
+      <img class="user-avatar" :src="user.picture.large" alt="user avatar" />
       <div class="user-meta">
-        <div class="user-name">{{user.firs}} {{user.last}}</div>
+        <div class="user-name">{{user.name.first}} {{user.name.last}}</div>
         <div class="user-title">{{user.title}}</div>
       </div>
     </div>
     <div class="user-card-body">
 
+    </div>
+    <div class="user-card-footer" v-if="user.skills.length">
+      <div class="user-skills">Skills:</div>
+      <ul class="user-skills-list">
+        <li v-for="skill in user.skills" :style="{color: skill.color, borderColor: skill.color}" :key="skill.key">{{skill.name}}</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -19,9 +25,11 @@ export default {
 
   props: {
     user: {
-      type: Array,
+      type: Object,
       default: {
-        picture: {}
+        picture: {},
+        name: {},
+        skills: []
       }
     }
   }
@@ -29,16 +37,64 @@ export default {
 </script>
 
 <style lang="scss">
+$card-offset: 25px;
 // https://vue-loader.vuejs.org/en/configurations/pre-processors.html
-.user-list {
-  padding: 25px;
+.user-card {
+  width: 540px;
+  float: left;
+  border-radius: 4px;
   
   &-header {
+    padding: $card-offset;
     background-color: $blue-1;
+    border-bottom: 2px solid #42663d;
+    display: flex;
+    align-items: center;
   }
 
-  &-heabodyder {
+  &-body {
+    padding: $card-offset;
     background-color: $blue-2;
+  }
+
+  &-footer {
+    display: flex;
+    align-items: center;
+    padding: $card-offset;
+    background-color: $blue-3;
+    border-top: 2px solid #394d65;
+  }
+
+  .user-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  .user-name {
+    margin-bottom: 6px;
+  }
+
+  .user-title {
+    color: #73879c;
+  }
+
+  .user-skills {
+    margin-right: 15px;
+
+    &-list {
+      margin-top: -10px;
+
+      > li {
+        margin-right: 8px;
+        margin-top: 10px;
+        padding: 4px 12px;
+        display: inline-block;
+        border: 1px solid #73879c;
+        border-radius: 10px;
+      }
+    }
   }
 }
 </style>
