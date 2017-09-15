@@ -40,13 +40,12 @@ export default {
 $card-offset: 25px;
 // https://vue-loader.vuejs.org/en/configurations/pre-processors.html
 .user-card {
-  width: 540px;
-  float: left;
   border-radius: 4px;
+  margin-bottom: 25px;
   
   &-header {
     padding: $card-offset;
-    background-color: $blue-1;
+    background-color: $black-1;
     border-bottom: 2px solid #42663d;
     display: flex;
     align-items: center;
@@ -54,14 +53,14 @@ $card-offset: 25px;
 
   &-body {
     padding: $card-offset;
-    background-color: $blue-2;
+    background-color: $black-2;
   }
 
   &-footer {
     display: flex;
     align-items: center;
     padding: $card-offset;
-    background-color: $blue-3;
+    background-color: $black-1;
     border-top: 2px solid #394d65;
   }
 

@@ -21,6 +21,7 @@ const userList = [
       medium: 'https://randomuser.me/api/portraits/med/women/67.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/women/67.jpg'
     },
+    tasks: [1],
     skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
@@ -45,6 +46,82 @@ const userList = [
       medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
     },
+    tasks: [2, 3],
+    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+  },
+  {
+    id: 3,
+    name: {
+      first: 'Friedrich',
+      last: 'Wiedemann'
+    },
+    title: 'UI/UX Designer',
+    gender: 'male',
+    email: 'friedrich.wiedemann@example.com',
+    registered: '2006-01-25 05:08:25',
+    phone: '0963-3777176',
+    location: {
+      street: '2219 wiesenstraße',
+      city: 'donau-ries',
+      state: 'saarland',
+      postcode: 69698
+    },
+    picture: {
+      large: 'https://randomuser.me/api/portraits/men/52.jpg',
+      medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
+    },
+    tasks: [2, 3],
+    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+  },
+  {
+    id: 4,
+    name: {
+      first: 'Friedrich',
+      last: 'Wiedemann'
+    },
+    title: 'UI/UX Designer',
+    gender: 'male',
+    email: 'friedrich.wiedemann@example.com',
+    registered: '2006-01-25 05:08:25',
+    phone: '0963-3777176',
+    location: {
+      street: '2219 wiesenstraße',
+      city: 'donau-ries',
+      state: 'saarland',
+      postcode: 69698
+    },
+    picture: {
+      large: 'https://randomuser.me/api/portraits/men/52.jpg',
+      medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
+    },
+    tasks: [2, 3],
+    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+  },
+  {
+    id: 5,
+    name: {
+      first: 'Friedrich',
+      last: 'Wiedemann'
+    },
+    title: 'UI/UX Designer',
+    gender: 'male',
+    email: 'friedrich.wiedemann@example.com',
+    registered: '2006-01-25 05:08:25',
+    phone: '0963-3777176',
+    location: {
+      street: '2219 wiesenstraße',
+      city: 'donau-ries',
+      state: 'saarland',
+      postcode: 69698
+    },
+    picture: {
+      large: 'https://randomuser.me/api/portraits/men/52.jpg',
+      medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
+    },
+    tasks: [2, 3],
     skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   }
 ]

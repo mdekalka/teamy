@@ -1,0 +1,24 @@
+button {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #2b303b;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  border: none;
+
+  .fa-icon {
+    position: relative;
+    top: 2px;
+  }
+}
+
+.btn-group {
+  button {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
