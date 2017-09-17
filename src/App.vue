@@ -49,7 +49,6 @@ export default {
   &-content {
     display: flex;
     flex: 1 1 100%;
-    padding: 15px;
     height: 100%;
     max-height: 100%;
     overflow-x: hidden;

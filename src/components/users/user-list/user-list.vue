@@ -5,7 +5,7 @@
         <b-col>
           <div class="options-panel">
             <div class="btn-group">
-              <button class="toggle-panel" @click="onTogglePanelClick"><icon name="filter"></icon></button>
+              <button class="toggle-panel" @click="onTogglePanelClick"><i class="fa fa-filter" aria-hidden="true"></i></button>
             </div>
           </div>
         </b-col>
@@ -30,7 +30,7 @@ import userCard from '@/components/users/user-card/user-card'
 import sidePanel from '@/components/side-panel/side-panel'
 import loader from '@/components/loader/loader'
 
-import { getUsers } from './user-list-api'
+import { getUsers } from '../user-list-api'
 import { extendWithColors } from './user-list-service'
 
 export default {

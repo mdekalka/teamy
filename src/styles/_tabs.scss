@@ -1,0 +1,21 @@
+.tabs {
+  .nav-link {
+    padding: 4px 20px;
+    border-radius: 0;
+    font-size: 15px;
+    background-color: $black;
+    color: $white;
+
+    &.active {
+      background-color: $black-2;
+    }
+  }
+
+  .tab-pane {
+    padding: 12px 0;
+
+    &:empty {
+      padding: 0;
+    }
+  }
+}

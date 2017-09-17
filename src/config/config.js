@@ -1,4 +1,4 @@
-export const URL = 'http://jsonplaceholder.typicode.com';
+export const URL = 'http://jsonplaceholder.typicode.com'
 
 export default {
   url: {
@@ -9,3 +9,5 @@ export default {
     posts: `${URL}/posts`
   }
 }
+
+export const TASK_TYPES = ['bug', 'story', 'epic', 'blocker']

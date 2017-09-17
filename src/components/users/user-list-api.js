@@ -8,7 +8,7 @@ export const getUserById = (id) => {
 }
 
 export const getUsers = () => {
-  return wait(4000).then(() => {
+  return wait(300).then(() => {
     return userList
   })
 }

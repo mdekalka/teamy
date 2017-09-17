@@ -1,59 +1,133 @@
 <template>
   <div class="side-menu">
-    <nav>
+    <nav class="side-nav">
       <ul class="side-menu-list">
-        <!-- https://codepen.io/LouVerdun/pen/aNdBaz?editors=1010  -->
-        <router-link class="side-menu-item" tag="li" exact :to="'/'"><a>Team list</a></router-link>
-        <router-link class="side-menu-item" tag="li" :to="'/tasks'"><a>Task list</a></router-link>
-        <router-link class="side-menu-item" tag="li" :to="'/a'"><a>Task list</a></router-link>
-        <router-link class="side-menu-item" tag="li" :to="'/b'"><a>Task list</a></router-link>
-        <router-link class="side-menu-item" tag="li" :to="'/c'"><a>Task list</a></router-link>
-        <router-link class="side-menu-item" tag="li" :to="'/d'"><a>Task list</a></router-link>
-        <router-link class="side-menu-item" tag="li" :to="'/e'"><a>Task list</a></router-link>
+        <router-link 
+          class="side-menu-item"
+          tag="li"
+          exact
+          :to="'/'"
+          @click.native="onLinkClick"
+          @mouseover.native="onLinkOver"
+          @mouseout.native="onLinkOut"><a>My team<i class="fa fa-users" aria-hidden="true"></i></a>
+        </router-link>
+        <router-link
+          class="side-menu-item"
+          tag="li"
+          :to="'/tasks'"
+          @click.native="onLinkClick"
+          @mouseover.native="onLinkOver"
+          @mouseout.native="onLinkOut"><a>Task list<i class="fa fa-id-card" aria-hidden="true"></i></a>
+        </router-link>
       </ul>
+      <div ref="magicLine" class="magic-line"></div>
     </nav>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'side-menu'
+  name: 'side-menu',
+
+  mounted () {
+    this.link = document.querySelector('.router-link-active')
+
+    this.setStyles(this.$refs.magicLine, {
+      height: `${this.link.offsetHeight}px`,
+      top: `${this.link.offsetTop}px`
+    })
+  },
+
+  methods: {
+    onLinkClick () {
+    },
+
+    onLinkOver (event) {
+      const link = event.currentTarget
+
+      this.setStyles(this.$refs.magicLine, {
+        height: `${link.offsetHeight}px`,
+        top: `${link.offsetTop}px`
+      })
+    },
+
+    onLinkOut () {
+      const link = document.querySelector('.router-link-active')
+
+      this.setStyles(this.$refs.magicLine, {
+        height: `${link.offsetHeight}px`,
+        top: `${link.offsetTop}px`
+      })
+    },
+
+    setStyles (element, styles) {
+      Object.assign(element.style, styles)
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-.side-menu {
-  // http://fontawesome.io/icons/ folder + folder-open for icon
+.side-nav {
   position: relative;
-  // flex-direction: column;
-  flex: 0 0 auto;
-  width: 260px;
+  height: 100%;
   padding: 15px 0;
+}
+
+.side-menu {
+  position: relative;
+  flex: 0 0 auto;
+  width: 240px;
   max-height: 100%;
-  border-right: 1px solid rgba(137, 176, 37, 0.48);
   overflow: hidden;
   overflow-y: auto;
 
+  &::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    right: 0;
+    background-color: $black-1;
+  }
+
   &-item {
+    text-align: right;
+
     &.router-link-active {
       > a {
-        background-color: $black-1;
         color: $main-green;
-        border-left: 2px solid $main-green;
       }
     }
 
     > a {
       display: block;
-      padding: 10px 20px;
+      padding: 15px 20px;
       color: $white;
+      font-weight: 300;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 14px;
+      transition: all .1s ease;
 
       &:hover {
-        background-color: $black-1;
         color: $main-green;
       }
     }
+
+    .fa {
+      margin-left: 20px;
+    }
   }
+}
+
+.magic-line {
+  position: absolute;
+  width: 2px;
+  right: 0;
+  background-color: $main-green;
+  transition: all .3s ease;
 }
 </style>
 

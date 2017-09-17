@@ -1,7 +1,16 @@
 @import '~normalize-scss/sass/normalize';
 
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome';
+
 @import 'variables';
 @import 'mixins';
 @import 'animations';
 @import 'common';
 @import 'buttons';
+@import 'layout';
+@import 'table';
+@import 'tooltips';
+@import 'breadcrumb';
+@import 'tabs';
+@import 'progress';

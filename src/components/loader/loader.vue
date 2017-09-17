@@ -1,6 +1,6 @@
 <template>
-  <div>
-    loader
+  <div class="loader-container">
+    <div class="loader"></div>
   </div>
 </template>
 
@@ -11,11 +11,22 @@ export default {
 </script>
 
 <style lang="scss">
-.loader {
+.loader-container {
   display: flex;
   flex: 1 1 auto;
+  height: 100%;
   justify-content: center;
   align-items: center;
+  // background-color: rgba(0, 0, 0, .1);
+
+  .loader {
+    width: 50px;
+    height: 50px;
+    border: 2px solid $main-gray;
+    border-top: 2px solid $main-green;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
 }
 </style>
 

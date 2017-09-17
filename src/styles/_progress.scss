@@ -1,0 +1,10 @@
+.progress {
+  border-radius: 0;
+  background-color: $black !important;
+
+  .progress-bar {
+    &.bg-dark {
+      background-color: $black-2 !important;
+    }
+  }
+}
