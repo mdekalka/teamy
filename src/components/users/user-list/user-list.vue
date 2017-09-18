@@ -5,7 +5,7 @@
         <b-col>
           <div class="options-panel">
             <div class="btn-group">
-              <button class="toggle-panel" @click="onTogglePanelClick"><i class="fa fa-filter" aria-hidden="true"></i></button>
+              <b-button class="toggle-panel" @click="onTogglePanelClick"><i class="fa fa-filter" aria-hidden="true"></i></b-button>
             </div>
           </div>
         </b-col>

@@ -1,0 +1,23 @@
+.modal {
+  .modal-content {
+    background-color: $main-black;
+    color: $gray-4;
+
+    .close {
+      color: $white;
+      cursor: pointer;
+    }
+
+    .modal-title {
+      color: $main-green;
+    }
+
+    .modal-header {
+      border-bottom-color: $main-gray;
+    }
+
+    .modal-footer {
+      border-top-color: $main-gray;
+    }
+  }
+}

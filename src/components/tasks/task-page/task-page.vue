@@ -17,19 +17,24 @@
             <td class="text-center">{{task.id}}</td>
             <td><router-link :to="{ name: 'task', params: { id: task.id }}">{{task.name}}</router-link></td>
             <td>{{task.description}}</td>
-            <td class="text-center" v-b-tooltip.left :title="task.priority"><priority-mark :color="task.priority" /></td>
-            <td class="text-center" v-b-tooltip.left :title="task.type"><type-mark :type="task.type" /></td>
+            <td class="text-center" >
+              <div v-b-tooltip.left :title="task.priority">
+                <priority-mark :color="task.priority" />
+              </div>
+            </td>
+            <td class="text-center">
+              <div v-b-tooltip.left :title="task.type">
+                <type-mark :type="task.type" />
+              </div>
+            </td>
             <td>{{task.status}}</td>
-            <td>{{task.assignee}}</td>
+            <td>{{getFullName(task.assignee.name)}}</td>
           </tr>
         </tbody>
       </table>
       <inner-loader v-if="isSorting" />
     </div>
     <loader v-else />
-    <div class="task-preview">
-
-    </div>
   </div>
 </template>
 
@@ -40,6 +45,8 @@ import priorityMark from '@/components/priority-mark/priority-mark'
 import typeMark from '@/components/type-mark/type-mark'
 
 import { getTasks, getFilteredTasks } from '../task-page-api'
+import { getUserById } from '@/components/users/user-list-api'
+import taskProfileModel from '@/components/tasks/task-profile-model'
 
 const headers = [
   { id: 1, key: 'id', name: 'Id' },
@@ -84,8 +91,27 @@ export default {
     getTasks () {
       this.isLoading = true
 
-      return getTasks().then((tasks) => {
+      return getTasks().then(tasks => {
         this.tasks = tasks
+
+        const allAssignees = this.tasks.map((task) => {
+          if (!task.assignee) {
+            return { ...taskProfileModel.assignee }
+          } else {
+            if (task.assignee.isFetched) {
+              return task.assignee
+            } else {
+              return getUserById(task.assignee)
+            }
+          }
+        })
+
+        return Promise.all(allAssignees)
+      })
+      .then(assignees => {
+        this.tasks.forEach((task, index) => {
+          task.assignee = { ...assignees[index], isFetched: true }
+        })
       })
       .catch(err => {
         this.errorMessage = err
@@ -122,6 +148,14 @@ export default {
         this.sortingOptions.sortReverse = !this.sortingOptions.sortReverse
         this.getFilteredTasks(this.sortingOptions)
       }
+    },
+
+    getFullName ({ first = '', last = '' }) {
+      if (!first.length && !last.length) {
+        return 'N/A'
+      }
+
+      return `${first} ${last}`
     }
   }
 }

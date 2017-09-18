@@ -1,15 +1,26 @@
-button {
+.btn {
   display: inline-block;
-  padding: 6px 12px;
-  background-color: #2b303b;
-  color: #fff;
+  padding: 8px 14px;
+  background-color: $black-2;
+  color: $white;
   cursor: pointer;
   outline: none;
   border: none;
+  box-shadow: none;
+  border-radius: 0;
+  font-size: 16px;
 
-  .fa-icon {
-    position: relative;
-    top: 2px;
+  &:hover {
+    background-color: $black;
+    
+    .fa {
+      color: $main-green;
+    }
+  }
+
+  &:focus,
+  &:active {
+    box-shadow: none;
   }
 }
 

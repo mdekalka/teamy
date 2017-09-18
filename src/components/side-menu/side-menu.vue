@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { setStyles } from '@/utils/utils'
 
 export default {
   name: 'side-menu',
@@ -33,36 +34,39 @@ export default {
   mounted () {
     this.link = document.querySelector('.router-link-active')
 
-    this.setStyles(this.$refs.magicLine, {
-      height: `${this.link.offsetHeight}px`,
-      top: `${this.link.offsetTop}px`
-    })
+    if (this.link) {
+      setStyles(this.$refs.magicLine, {
+        height: `${this.link.offsetHeight}px`,
+        top: `${this.link.offsetTop}px`
+      })
+    }
   },
 
   methods: {
     onLinkClick () {
+
     },
 
     onLinkOver (event) {
       const link = event.currentTarget
 
-      this.setStyles(this.$refs.magicLine, {
-        height: `${link.offsetHeight}px`,
-        top: `${link.offsetTop}px`
-      })
+      if (link) {
+        setStyles(this.$refs.magicLine, {
+          height: `${link.offsetHeight}px`,
+          top: `${link.offsetTop}px`
+        })
+      }
     },
 
     onLinkOut () {
       const link = document.querySelector('.router-link-active')
 
-      this.setStyles(this.$refs.magicLine, {
-        height: `${link.offsetHeight}px`,
-        top: `${link.offsetTop}px`
-      })
-    },
-
-    setStyles (element, styles) {
-      Object.assign(element.style, styles)
+      if (link) {
+        setStyles(this.$refs.magicLine, {
+          height: `${link.offsetHeight}px`,
+          top: `${link.offsetTop}px`
+        })
+      }
     }
   }
 }

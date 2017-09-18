@@ -6,39 +6,28 @@
           <b-breadcrumb :items="routeItems"/>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col>
+          <div class="options-panel">
+            <b-button v-b-modal.task-edit-modal>
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </b-button>
+          </div>
+        </b-col>
+      </b-row>
       <b-row class="task-content" v-if="!isLoading && !errorMessage">
         <b-col class="task-leftside" md="8">
           <h2 class="task-name">{{task.name}}</h2>
-          <div class="task-block">
-            <span class="task-row-name">Priority:</span>
-            <span class="task-row-description">{{task.priority}}<priority-mark :color="task.priority" /></span>
-          </div>
-
-          <div class="task-block">
-            <span class="task-row-name">Type:</span>
-            <span class="task-row-description">{{task.type}}</span>
-          </div>
-          <div class="task-block">
-            <span class="task-row-name">Status:</span>
-            <span class="task-row-description">{{task.status}}</span>
-          </div>
-          <div class="task-block">
-            <span class="task-row-name">Sprint:</span>
-            <span class="task-row-description">{{task.sprint}}</span>
-          </div>
-          <div class="task-block">
-            <span class="task-row-name">Labels:</span>
-            <span class="task-row-description">{{task.labels.join(', ')}}</span>
-          </div>
-          <div class="task-block">
-            <span class="task-row-name">Environment:</span>
-            <span class="task-row-description">{{task.environment}}</span>
-          </div>
-          <div class="task-block">
-            <div class="task-label">Description:</div>
-            {{task.description}}
-          </div>
-
+          <task-block label="Priority:">
+            {{task.priority}}
+            <priority-mark :color="task.priority" />
+          </task-block>
+          <task-block label="Type:">{{task.type}}</task-block>
+          <task-block label="Status:">{{task.status}}</task-block>
+          <task-block label="Sprint:">{{task.sprint}}</task-block>
+          <task-block label="Labels:">{{task.labels.join(', ')}}</task-block>
+          <task-block label="Environment:">{{task.environment}}</task-block>
+          <task-block label="Description:">{{task.description}}</task-block>
           <b-tabs pills>
             <b-tab title="Comments:" active>
               <div v-if="task.comments.length">saf</div>
@@ -49,74 +38,62 @@
           </b-tabs>
         </b-col>
         <b-col class="task-rightside" md="4">
-          <div class="task-block">
-            <span class="task-row-name">Votes:</span>
-            <span class="task-row-description">{{task.votes}}</span>
-          </div>
-          <div class="task-block">
-            <span class="task-row-name">Reporter:</span>
-            <span class="task-row-description">{{task.reporter}}</span>
-          </div>
-          <div class="task-block">
-            <span class="task-row-name">Assignee:</span>
-            <span class="task-row-description">
+          <task-block label="Votes:">{{task.votes}}</task-block>
+          <task-block label="Reporter:">{{task.reporter}}</task-block>
+          <task-block label="Assignee:">
+            <div v-if="task.assignee.picture.thumbnail">
               <img class="task-assignee" :src="task.assignee.picture.thumbnail" />
               {{fullName}}
-              </span>
-          </div>
-          <div class="task-block">
-            <span class="task-row-name">Created date:</span>
-            <span class="task-row-description">{{task.dates.created}}</span>
-          </div>
-          <div class="task-block">
-            <span class="task-row-name">Updated date:</span>
-            <span class="task-row-description">{{task.dates.updated}}</span>
-          </div>
+            </div>
+          </task-block>
+          <task-block label="Created date:">{{task.dates.created}}</task-block>
+          <task-block label="Updated date:">{{task.dates.updated}}</task-block>
           <hr>
-          <div class="task-block block">
-            <span class="task-row-name">Estimated time ({{task.time.estimated}} hr):</span>
-            <span class="task-row-description">
-              <b-progress height="16px" :value="task.time.estimated" :max="task.time.estimated" variant="dark"></b-progress>
-            </span>
-          </div>
-          <div class="task-block block">
-            <span class="task-row-name">Logged time ({{task.time.logged}} hr):</span>
-            <span class="task-row-description">
-              <b-progress height="16px" :value="task.time.logged" :max="task.time.estimated" variant="dark"></b-progress>
-            </span>
-          </div>
+          <task-block class="block" :label="`Estimated time (${task.time.estimated} hr):`">
+            <b-progress height="16px" :value="task.time.estimated" :max="task.time.estimated" variant="dark"></b-progress>
+          </task-block>
+          <task-block class="block" :label="`Logged time (${task.time.logged} hr):`">
+            <b-progress height="16px" :value="task.time.logged" :max="task.time.estimated" variant="dark"></b-progress>
+          </task-block>
         </b-col>
       </b-row>
       <loader v-else />
     </b-container>
+    <task-edit-modal :show="isEditVisible" :task="task" />
   </div>
 </template>
 
 <script>
 import { getTaskById } from '../task-page-api'
 import { getUserById } from '@/components/users/user-list-api'
+import taskProfileModel from '../task-profile-model'
+
 import priorityMark from '@/components/priority-mark/priority-mark'
 import loader from '@/components/loader/loader'
+import taskBlock from '../task-block/task-block'
+import taskEditModal from '../task-edit-modal/task-edit-modal'
 
 export default {
   name: 'task-profile',
 
   components: {
     priorityMark,
-    loader
+    loader,
+    taskBlock,
+    taskEditModal
   },
 
   data () {
     return {
       isLoading: false,
-      task: {},
+      isEditVisible: false,
+      task: taskProfileModel,
       errorMessage: '',
       routeItems: []
     }
   },
 
   created () {
-    console.log(this.$route)
     this.loadTaskById(this.$route.params.id)
     this.routeItems = [{ text: 'Task list', to: { name: 'taskPage' } }, { text: 'Task', active: true }]
   },
@@ -127,10 +104,21 @@ export default {
 
       getTaskById(+id).then(task => {
         this.task = task
+
+        return this.task
       })
-      .then(() => {
+      .then((task) => {
+        if (!task.assignee) {
+          task.assignee = { ...taskProfileModel.assignee }
+          return
+        }
+
+        if (task.assignee.isFetched) {
+          return
+        }
+
         return getUserById(this.task.assignee).then((user) => {
-          this.task.assignee = user
+          this.task.assignee = { ...user, isFetched: true }
         })
       })
       .catch(err => {
@@ -144,7 +132,7 @@ export default {
 
   computed: {
     fullName () {
-      return `${this.task.assignee.name.first} ${this.task.assignee.name.last}`
+      return `${this.task.assignee.name.first || ''} ${this.task.assignee.name.last || ''}`
     }
   }
 }
@@ -155,20 +143,15 @@ export default {
   border-right: 1px dashed $main-gray;
 }
 
+.options-panel {
+  display: flex;
+  flex-basis: 100%;
+  margin-bottom: 15px;
+}
+
 .task-content {
   background-color: $black-5;
   padding: 15px 0;
-
-  .task-block {
-    margin-bottom: 8px;
-
-    &.block {
-      .task-row-name,
-      .task-row-description {
-        display: block;
-      }
-    }
-  }
 
   .task-name {
     display: inline-block;
@@ -195,11 +178,6 @@ export default {
     color: $gray-2;
   }
 
-  .task-row-name,
-  .task-row-description {
-    display: inline-block;
-  }
-
   .progress {
     margin-top: 6px;
   }
@@ -212,13 +190,6 @@ export default {
     margin-top: 35px;
   }
 }
-
-.task-description {
-  // padding-top: 15px;
-  // padding-bottom: 15px;
-  
-}
-
 </style>
 
 

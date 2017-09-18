@@ -17,8 +17,8 @@ const taskList = [
       updated: null
     },
     time: {
-      estimated: '6h',
-      logged: '0'
+      estimated: 4,
+      logged: 0
     },
     comments: [],
     history: []
@@ -65,8 +65,8 @@ const taskList = [
       updated: null
     },
     time: {
-      estimated: '6h',
-      logged: '0'
+      estimated: 6,
+      logged: 2
     },
     comments: [],
     history: []
@@ -89,8 +89,8 @@ const taskList = [
       updated: null
     },
     time: {
-      estimated: '6h',
-      logged: '0'
+      estimated: 6,
+      logged: 4
     },
     comments: [],
     history: []
@@ -113,8 +113,8 @@ const taskList = [
       updated: null
     },
     time: {
-      estimated: '6h',
-      logged: '0'
+      estimated: 8,
+      logged: 2
     },
     comments: [],
     history: []
@@ -137,8 +137,8 @@ const taskList = [
       updated: null
     },
     time: {
-      estimated: '6h',
-      logged: '0'
+      estimated: 4,
+      logged: 1
     },
     comments: [],
     history: []
@@ -161,8 +161,8 @@ const taskList = [
       updated: null
     },
     time: {
-      estimated: '6h',
-      logged: '0'
+      estimated: 45,
+      logged: 12
     },
     comments: [],
     history: []
@@ -185,8 +185,8 @@ const taskList = [
       updated: null
     },
     time: {
-      estimated: '6h',
-      logged: '0'
+      estimated: 34,
+      logged: 11
     },
     comments: [],
     history: []
@@ -209,8 +209,8 @@ const taskList = [
       updated: null
     },
     time: {
-      estimated: '6h',
-      logged: '0'
+      estimated: 5,
+      logged: 2
     },
     comments: [],
     history: []
