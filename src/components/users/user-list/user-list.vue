@@ -82,18 +82,14 @@ export default {
 .user-list {
   flex: 0 1 100%;
 
-  .col {
-    // margin-left: -15px;
-    // padding-right: 0;
-    // padding-left: 0;
+  .options-panel {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
   }
 }
 
-.options-panel {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
+
 </style>
 
 

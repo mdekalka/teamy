@@ -38,7 +38,6 @@
           </b-tabs>
         </b-col>
         <b-col class="task-rightside" md="4">
-          <task-block label="Votes:">{{task.votes}}</task-block>
           <task-block label="Reporter:">{{task.reporter}}</task-block>
           <task-block label="Assignee:">
             <div v-if="task.assignee.picture.thumbnail">
@@ -59,7 +58,10 @@
       </b-row>
       <loader v-else />
     </b-container>
-    <task-edit-modal :show="isEditVisible" :task="task" />
+    <div>
+
+    </div>
+    <task-edit-modal :show="isEditVisible" :task="task" @ok="onEditOk" @shown="onEditClose" @submit="onEditSubmit" />
   </div>
 </template>
 
@@ -86,7 +88,7 @@ export default {
   data () {
     return {
       isLoading: false,
-      isEditVisible: false,
+      isEditVisible: true,
       task: taskProfileModel,
       errorMessage: '',
       routeItems: []
@@ -127,7 +129,20 @@ export default {
       .finally(() => {
         this.isLoading = false
       })
+    },
+
+    onEditOk () {
+
+    },
+
+    onEditClose () {
+
+    },
+
+    onEditSubmit () {
+
     }
+
   },
 
   computed: {

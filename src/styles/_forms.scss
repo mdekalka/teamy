@@ -1,0 +1,12 @@
+input.form-control,
+textarea.form-control {
+  background-color: $black-2;
+  color: $gray-4;
+  border-radius: 0;
+
+  &:focus {
+    background-color: $black-2;
+    border-color: $main-green;
+    color: $gray-4;
+  }
+}
