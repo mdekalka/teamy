@@ -9,7 +9,7 @@
       <b-row>
         <b-col>
           <div class="options-panel">
-            <b-button v-b-modal.task-edit-modal>
+            <b-button v-b-modal.task-edit-modal :disabled="isLoading || !!errorMessage">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </b-button>
           </div>
@@ -61,7 +61,7 @@
     <div>
 
     </div>
-    <task-edit-modal :show="isEditVisible" :task="task" @ok="onEditOk" @shown="onEditClose" @submit="onEditSubmit" />
+    <task-edit-modal :on-cancel="onModalClose" :on-apply="onModalApply" :task="taskEdit" />
   </div>
 </template>
 
@@ -88,10 +88,10 @@ export default {
   data () {
     return {
       isLoading: false,
-      isEditVisible: true,
       task: taskProfileModel,
       errorMessage: '',
-      routeItems: []
+      routeItems: [],
+      taskEdit: taskProfileModel
     }
   },
 
@@ -123,6 +123,9 @@ export default {
           this.task.assignee = { ...user, isFetched: true }
         })
       })
+      .then(() => {
+        this.taskEdit = { ...this.task }
+      })
       .catch(err => {
         this.errorMessage = err
       })
@@ -131,18 +134,13 @@ export default {
       })
     },
 
-    onEditOk () {
-
+    onModalApply () {
+      console.log('asf')
     },
 
-    onEditClose () {
-
-    },
-
-    onEditSubmit () {
-
+    onModalClose (a, b) {
+      this.taskEdit = { ...this.task }
     }
-
   },
 
   computed: {

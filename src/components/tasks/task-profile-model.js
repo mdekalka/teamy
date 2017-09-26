@@ -1,11 +1,19 @@
 const taskProfileModel = {
+  name: '',
+  description: '',
+  priority: '',
+  type: '',
+  status: '',
+  sprint: '',
+  environment: '',
   labels: [],
-  time: {},
   assignee: {
     picture: {},
     name: {}
   },
+  reporter: {},
   dates: {},
+  time: {},
   comments: [],
   history: []
 }

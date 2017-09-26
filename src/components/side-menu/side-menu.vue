@@ -2,14 +2,14 @@
   <div class="side-menu">
     <nav class="side-nav">
       <ul class="side-menu-list">
-        <router-link 
+        <router-link
           class="side-menu-item"
           tag="li"
           exact
           :to="'/'"
           @click.native="onLinkClick"
           @mouseover.native="onLinkOver"
-          @mouseout.native="onLinkOut"><a>My team<i class="fa fa-users" aria-hidden="true"></i></a>
+          @mouseout.native="onLinkOut"><a>My project<i class="fa fa-users" aria-hidden="true"></i></a>
         </router-link>
         <router-link
           class="side-menu-item"

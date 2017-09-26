@@ -9,4 +9,36 @@ textarea.form-control {
     border-color: $main-green;
     color: $gray-4;
   }
+
+  &.is-invalid {
+    &:focus {
+      border-color: $main-red;
+    }
+  }
+}
+
+.custom-radio {
+  .custom-control-indicator {
+    background-color: $main-gray;
+  }
+}
+
+.custom-control-input {
+  &:checked {
+    ~ .custom-control-indicator {
+      background-color: $main-green;
+    }
+  }
+
+  &:active {
+    ~ .custom-control-indicator {
+      background-color: $green-1;
+    }
+  }
+
+  &:focus {
+    ~ .custom-control-indicator {
+      box-shadow: none;
+    }
+  }
 }
