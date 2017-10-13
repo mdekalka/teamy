@@ -18,11 +18,10 @@ const userList = [
     },
     picture: {
       large: 'https://randomuser.me/api/portraits/women/67.jpg',
-      medium: 'https://randomuser.me/api/portraits/med/women/67.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/women/67.jpg'
     },
     tasks: [1],
-    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+    roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
     id: 2,
@@ -43,11 +42,10 @@ const userList = [
     },
     picture: {
       large: 'https://randomuser.me/api/portraits/men/52.jpg',
-      medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
     },
     tasks: [2, 3],
-    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+    roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
     id: 3,
@@ -68,11 +66,10 @@ const userList = [
     },
     picture: {
       large: 'https://randomuser.me/api/portraits/men/52.jpg',
-      medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
     },
     tasks: [2, 3],
-    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+    roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
     id: 4,
@@ -93,11 +90,10 @@ const userList = [
     },
     picture: {
       large: 'https://randomuser.me/api/portraits/men/52.jpg',
-      medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
     },
     tasks: [2, 3],
-    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+    roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
     id: 5,
@@ -118,11 +114,10 @@ const userList = [
     },
     picture: {
       large: 'https://randomuser.me/api/portraits/men/52.jpg',
-      medium: 'https://randomuser.me/api/portraits/med/men/52.jpg',
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/52.jpg'
     },
     tasks: [2, 3],
-    skills: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+    roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   }
 ]
 

@@ -22,7 +22,7 @@
     </side-panel>
   </div>
   <loader v-else />
-  
+
 </template>
 
 <script>
@@ -61,7 +61,7 @@ export default {
 
       getUsers().then(users => {
         this.users = users.map(user => {
-          return { ...user, skills: extendWithColors(user.skills) }
+          return { ...user, roles: extendWithColors(user.roles) }
         })
       })
       .catch((err) => {

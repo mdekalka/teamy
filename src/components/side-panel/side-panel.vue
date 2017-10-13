@@ -19,24 +19,8 @@ export default {
   position: fixed;
   top: $header-height;
   right: 0;
-  // left: 0;
   bottom: 0;
   transition: z-index ease-in .4s;
-
-  // &:before {
-  //   content: " ";
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   left: 0;
-  //   transition: opacity .3s ease;
-  //   background: red;
-
-  //   &.with-backdrop {
-  //     background: gray;
-  //   }
-  // }
 
   &.is-open {
     z-index: 999;

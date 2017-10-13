@@ -7,13 +7,13 @@
         <b-form-feedback id="name-feedback">Name cannot be empty</b-form-feedback>
       </b-form-group>
       <b-form-group label="Edit type*:">
-        <b-form-radio v-model="task.type" :options="types"></b-form-radio>
+        <b-form-radio-group v-model="task.type" :options="types"></b-form-radio-group>
       </b-form-group>
       <b-form-group label="Edit status*:">
-        <b-form-radio v-model="task.status" :options="statuses"></b-form-radio>
+        <b-form-radio-group v-model="task.status" :options="statuses"></b-form-radio-group>
       </b-form-group>
       <b-form-group label="Edit priority*:">
-        <b-form-radio v-model="task.priority" :options="priorities"></b-form-radio>
+        <b-form-radio-group v-model="task.priority" :options="priorities"></b-form-radio-group>
       </b-form-group>
       <b-form-group label="Edit description*:">
         <b-form-textarea id="edit-description" v-model.trim="task.description" :state="validateDescription" placeholder="Edit description" :rows="3" :max-rows="6">

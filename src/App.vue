@@ -31,29 +31,5 @@ export default {
   display: flex;
   height: 100%;
 }
-
-.page-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
-
-.main {
-  display: flex;
-  flex: 1 1 100%;
-  max-height: 100%;
-
-  &-content {
-    display: flex;
-    flex: 1 1 100%;
-    height: 100%;
-    max-height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-}
 </style>
 

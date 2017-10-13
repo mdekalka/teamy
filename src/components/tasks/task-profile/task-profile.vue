@@ -55,6 +55,7 @@
             <b-progress height="16px" :value="task.time.logged" :max="task.time.estimated" variant="dark"></b-progress>
           </task-block>
         </b-col>
+        <inner-loader v-if="isUpdating" />
       </b-row>
       <loader v-else />
     </b-container>
@@ -66,7 +67,7 @@
 </template>
 
 <script>
-import { getTaskById } from '../task-page-api'
+import { getTaskById, updateTaskById } from '../task-page-api'
 import { getUserById } from '@/components/users/user-list-api'
 import taskProfileModel from '../task-profile-model'
 
@@ -74,6 +75,7 @@ import priorityMark from '@/components/priority-mark/priority-mark'
 import loader from '@/components/loader/loader'
 import taskBlock from '../task-block/task-block'
 import taskEditModal from '../task-edit-modal/task-edit-modal'
+import innerLoader from '@/components/inner-loader/inner-loader'
 
 export default {
   name: 'task-profile',
@@ -81,6 +83,7 @@ export default {
   components: {
     priorityMark,
     loader,
+    innerLoader,
     taskBlock,
     taskEditModal
   },
@@ -88,6 +91,7 @@ export default {
   data () {
     return {
       isLoading: false,
+      isUpdating: false,
       task: taskProfileModel,
       errorMessage: '',
       routeItems: [],
@@ -135,10 +139,20 @@ export default {
     },
 
     onModalApply () {
-      console.log('asf')
+      this.isUpdating = true
+
+      updateTaskById(this.taskEdit.id, this.taskEdit).then(() => {
+        this.task = { ...this.taskEdit }
+      })
+      .catch(err => {
+        this.errorMessage = err
+      })
+      .finally(() => {
+        this.isUpdating = false
+      })
     },
 
-    onModalClose (a, b) {
+    onModalClose () {
       this.taskEdit = { ...this.task }
     }
   },
@@ -163,6 +177,7 @@ export default {
 }
 
 .task-content {
+  position: relative;
   background-color: $black-5;
   padding: 15px 0;
 

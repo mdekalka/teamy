@@ -3,7 +3,7 @@
     <div class="task-list" v-if="!isLoading">
       <table class="task-table bordered">
         <thead>
-          <th 
+          <th
             v-for="(head, index) in headers"
             @click="onHeaderClick(head)"
             :key="index"
@@ -47,6 +47,7 @@ import typeMark from '@/components/type-mark/type-mark'
 import { getTasks, getFilteredTasks } from '../task-page-api'
 import { getUserById } from '@/components/users/user-list-api'
 import taskProfileModel from '@/components/tasks/task-profile-model'
+import { NO_VALUE } from '@/config/config'
 
 const headers = [
   { id: 1, key: 'id', name: 'Id' },
@@ -152,7 +153,7 @@ export default {
 
     getFullName ({ first = '', last = '' }) {
       if (!first.length && !last.length) {
-        return 'N/A'
+        return NO_VALUE
       }
 
       return `${first} ${last}`

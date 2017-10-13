@@ -10,10 +10,10 @@
     <div class="user-card-body">
 
     </div>
-    <div class="user-card-footer" v-if="user.skills.length">
+    <div class="user-card-footer" v-if="user.roles.length">
       <div class="user-skills">Skills:</div>
       <ul class="user-skills-list">
-        <li v-for="skill in user.skills" :style="{color: skill.color, borderColor: skill.color}" :key="skill.key">{{skill.name}}</li>
+        <li v-for="role in user.roles" :style="{color: role.color, borderColor: role.color}" :key="role.key">{{role.name}}</li>
       </ul>
     </div>
   </div>
@@ -42,7 +42,7 @@ $card-offset: 25px;
 .user-card {
   border-radius: 4px;
   margin-bottom: 25px;
-  
+
   &-header {
     padding: $card-offset;
     background-color: $black-1;

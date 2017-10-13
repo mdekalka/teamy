@@ -2,6 +2,16 @@
   <div class="side-menu">
     <nav class="side-nav">
       <ul class="side-menu-list">
+        <!--TODO: Refactor this to array of lists  -->
+        <router-link
+          class="side-menu-item"
+          tag="li"
+          exact
+          :to="'/new-profile'"
+          @click.native="onLinkClick"
+          @mouseover.native="onLinkOver"
+          @mouseout.native="onLinkOut"><a>Create profile<i class="fa fw fa-user-plus" aria-hidden="true"></i></a>
+        </router-link>
         <router-link
           class="side-menu-item"
           tag="li"
@@ -9,7 +19,7 @@
           :to="'/'"
           @click.native="onLinkClick"
           @mouseover.native="onLinkOver"
-          @mouseout.native="onLinkOut"><a>My project<i class="fa fa-users" aria-hidden="true"></i></a>
+          @mouseout.native="onLinkOut"><a>My project<i class="fa fw fa-users" aria-hidden="true"></i></a>
         </router-link>
         <router-link
           class="side-menu-item"
@@ -17,7 +27,7 @@
           :to="'/tasks'"
           @click.native="onLinkClick"
           @mouseover.native="onLinkOver"
-          @mouseout.native="onLinkOut"><a>Task list<i class="fa fa-id-card" aria-hidden="true"></i></a>
+          @mouseout.native="onLinkOut"><a>Task list<i class="fa fw fa-id-card" aria-hidden="true"></i></a>
         </router-link>
       </ul>
       <div ref="magicLine" class="magic-line"></div>
@@ -76,7 +86,6 @@ export default {
 .side-nav {
   position: relative;
   height: 100%;
-  padding: 15px 0;
 }
 
 .side-menu {

@@ -30,3 +30,10 @@ export const TASK_PRIORITIES = [
   { id: 3, key: 'major', title: 'major' },
   { id: 4, key: 'blocker', title: 'blocker' }
 ]
+
+export const STATUS = {
+  OK: 'OK',
+  FAIL: 'FAIL'
+}
+
+export const NO_VALUE = 'N/A'

@@ -1,4 +1,5 @@
 import { wait } from '@/config/api'
+import { STATUS } from '@/config/config'
 import taskList from '@/mocks/taskList'
 
 export const getTasks = () => {
@@ -18,5 +19,19 @@ export const getFilteredTasks = (type, reversed) => {
 export const getTaskById = (id) => {
   return wait(1000).then(() => {
     return taskList.find((task) => task.id === id)
+  })
+}
+
+export const updateTaskById = (id, updatedTask) => {
+  return wait(1000).then(() => {
+    taskList.forEach((task, index) => {
+      if (task.id === id) {
+        taskList[index] = updatedTask
+      }
+    })
+
+    return {
+      status: STATUS.OK
+    }
   })
 }

@@ -17,12 +17,6 @@ textarea.form-control {
   }
 }
 
-.custom-radio {
-  .custom-control-indicator {
-    background-color: $main-gray;
-  }
-}
-
 .custom-control-input {
   &:checked {
     ~ .custom-control-indicator {
@@ -42,3 +36,35 @@ textarea.form-control {
     }
   }
 }
+
+.custom-checkbox {
+  .custom-control-indicator {
+    background-color: $black-2;
+  }
+}
+
+.custom-select {
+  background-color: $black-2;
+  background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='#{$main-green}' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+
+  &:focus {
+    border-color: $main-green;
+    background-color: $black-2;
+  }
+}
+
+.custom-radio {
+  .custom-control-indicator {
+    background-color: $main-gray;
+  }
+
+  .custom-control-input {
+    &:checked {
+      ~ .custom-control-indicator {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='#{$main-gray}'/%3E%3C/svg%3E");
+      }
+    }
+  }
+}
+
+
