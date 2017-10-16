@@ -3,32 +3,18 @@
     <nav class="side-nav">
       <ul class="side-menu-list">
         <!--TODO: Refactor this to array of lists  -->
-        <router-link
-          class="side-menu-item"
-          tag="li"
-          exact
-          :to="'/new-profile'"
-          @click.native="onLinkClick"
-          @mouseover.native="onLinkOver"
-          @mouseout.native="onLinkOut"><a>Create profile<i class="fa fw fa-user-plus" aria-hidden="true"></i></a>
-        </router-link>
-        <router-link
-          class="side-menu-item"
-          tag="li"
-          exact
-          :to="'/'"
-          @click.native="onLinkClick"
-          @mouseover.native="onLinkOver"
-          @mouseout.native="onLinkOut"><a>My project<i class="fa fw fa-users" aria-hidden="true"></i></a>
-        </router-link>
-        <router-link
-          class="side-menu-item"
-          tag="li"
-          :to="'/tasks'"
-          @click.native="onLinkClick"
-          @mouseover.native="onLinkOver"
-          @mouseout.native="onLinkOut"><a>Task list<i class="fa fw fa-id-card" aria-hidden="true"></i></a>
-        </router-link>
+        <template v-for="menuItem in sideMenu">
+          <router-link
+            class="side-menu-item"
+            tag="li"
+            :key="menuItem.id"
+            exact
+            :to="menuItem.route"
+            @click.native="onLinkClick"
+            @mouseover.native="onLinkOver"
+            @mouseout.native="onLinkOut"><a>{{menuItem.name}}<i :class="['fa', menuItem.icon]" aria-hidden="true"></i></a>
+          </router-link>
+        </template>
       </ul>
       <div ref="magicLine" class="magic-line"></div>
     </nav>
@@ -38,8 +24,14 @@
 <script>
 import { setStyles } from '@/utils/utils'
 
+import { SIDEMENU_ITEMS } from '@/config/config'
+
 export default {
   name: 'side-menu',
+
+  created () {
+    this.sideMenu = SIDEMENU_ITEMS
+  },
 
   mounted () {
     this.link = document.querySelector('.router-link-active')

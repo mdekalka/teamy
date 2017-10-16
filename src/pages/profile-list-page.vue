@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoading" class="user-list">
+  <div class="profile-list-page page">
     <b-container fluid>
       <b-row>
         <b-col>
@@ -11,8 +11,10 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col col md="4" v-for="user in users" :key="user.id">
-          <user-card  :user="user" />
+        <b-col col md="4" v-for="profile in profiles" :key="profile.id">
+          <profile-card  :profile="profile" />
+            <profile-card-tools slot="header-tools" />
+          </profile-card>
         </b-col>
       </b-row>
     </b-container>
@@ -20,31 +22,32 @@
     <side-panel :is-open="isPanelOpen">
       piupipu
     </side-panel>
+    <loader v-if="isLoading" />
   </div>
-  <loader v-else />
-
 </template>
 
 <script>
-import userCard from '@/components/users/user-card/user-card'
+import profileCard from '@/components/profile/profile-card/profile-card'
 import sidePanel from '@/components/side-panel/side-panel'
+import profileCardTools from '@/components/profile/profile-card-tools/profile-card-tools'
 import loader from '@/components/loader/loader'
 
-import { getUsers } from '../user-list-api'
-import { extendWithColors } from './user-list-service'
+import { getUsers } from '@/components/profile/profile-api'
+import { extendWithColors } from '@/components/profile/profile-service'
 
 export default {
-  name: 'user-list',
+  name: 'profile-list-page',
 
   components: {
-    userCard,
+    profileCard,
     sidePanel,
+    profileCardTools,
     loader
   },
 
   data () {
     return {
-      users: [],
+      profiles: [],
       isLoading: false,
       errorMessage: '',
       isPanelOpen: false
@@ -59,9 +62,9 @@ export default {
     getUsers () {
       this.isLoading = true
 
-      getUsers().then(users => {
-        this.users = users.map(user => {
-          return { ...user, roles: extendWithColors(user.roles) }
+      getUsers().then(profiles => {
+        this.profiles = profiles.map(profile => {
+          return { ...profile, roles: extendWithColors(profile.roles) }
         })
       })
       .catch((err) => {
@@ -79,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss">
-.user-list {
+.profile-list-page {
   flex: 0 1 100%;
 
   .options-panel {

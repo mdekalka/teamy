@@ -45,7 +45,7 @@ import priorityMark from '@/components/priority-mark/priority-mark'
 import typeMark from '@/components/type-mark/type-mark'
 
 import { getTasks, getFilteredTasks } from '../task-page-api'
-import { getUserById } from '@/components/users/user-list-api'
+import { getUserById } from '@/components/profile/profile-api'
 import taskProfileModel from '@/components/tasks/task-profile-model'
 import { NO_VALUE } from '@/config/config'
 

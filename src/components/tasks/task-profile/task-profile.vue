@@ -68,7 +68,7 @@
 
 <script>
 import { getTaskById, updateTaskById } from '../task-page-api'
-import { getUserById } from '@/components/users/user-list-api'
+import { getUserById } from '@/components/profile/profile-api'
 import taskProfileModel from '../task-profile-model'
 
 import priorityMark from '@/components/priority-mark/priority-mark'

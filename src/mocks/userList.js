@@ -1,6 +1,6 @@
 const userList = [
   {
-    id: 1,
+    id: '1',
     name: {
       first: 'Latife',
       last: 'Erez'
@@ -24,7 +24,7 @@ const userList = [
     roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
-    id: 2,
+    id: '2',
     name: {
       first: 'Friedrich',
       last: 'Wiedemann'
@@ -48,7 +48,7 @@ const userList = [
     roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
-    id: 3,
+    id: '3',
     name: {
       first: 'Friedrich',
       last: 'Wiedemann'
@@ -72,7 +72,7 @@ const userList = [
     roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
-    id: 4,
+    id: '4',
     name: {
       first: 'Friedrich',
       last: 'Wiedemann'
@@ -96,7 +96,7 @@ const userList = [
     roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
   },
   {
-    id: 5,
+    id: '5',
     name: {
       first: 'Friedrich',
       last: 'Wiedemann'

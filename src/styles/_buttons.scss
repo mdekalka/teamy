@@ -35,16 +35,18 @@
   &:active {
     box-shadow: none;
   }
+}
 
-  // &:disabled {
-  //   &:hover {
-  //     background-color: $gray-2;
+.btn-icon {
+  border: none;
+  outline: none;
+  padding: 4px 8px;
+  background-color: #1b1c20;
+  cursor: pointer;
 
-  //     .fa {
-  //       color: $main-green;
-  //     }
-  //   }
-  // }
+  .fa {
+    color: $main-green;
+  }
 }
 
 .btn-group {

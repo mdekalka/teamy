@@ -37,3 +37,10 @@ export const STATUS = {
 }
 
 export const NO_VALUE = 'N/A'
+
+export const SIDEMENU_ITEMS = [
+  { id: 1, route: '/new-profile', icon: 'fw fa-user-plus', name: 'Create profile' },
+  { id: 2, route: '/profiles', icon: 'fw fa-users', name: 'Profile list' },
+  { id: 4, route: '/new-profile', icon: 'fw fa-user-plus', name: 'Create profile' },
+  { id: 5, route: '/tasks', icon: 'fw fa-id-card', name: 'Task list' }
+]

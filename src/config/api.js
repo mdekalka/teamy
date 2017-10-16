@@ -3,3 +3,4 @@ export const wait = (time) => {
     setTimeout(resolve, time)
   })
 }
+

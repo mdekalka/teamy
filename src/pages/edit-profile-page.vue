@@ -1,9 +1,9 @@
 <template>
-  <div class="create-profile-page page">
+  <div class="edit-profile-page page">
     <b-container fluid>
       <b-row>
         <b-col col md="6">
-          <header-title :title="'Create new profile:'" underline/>
+          <header-title :title="'Edit profile:'" underline/>
           <profile-form :form="form" @create-profile="createProfile" :loading="isLoading" />
         </b-col>
         <b-col col md="6">
@@ -25,6 +25,7 @@ import headerTitle from '@/components/common/header-title.vue'
 import messagePanel from '@/components/common/message-panel'
 
 import profileMode from '@/components/profile/profile-model'
+import userList from '@/mocks/userList'
 import { addUser } from '@/components/profile/profile-api'
 import { profile } from '@/config/messages'
 
@@ -39,7 +40,7 @@ export default {
       afterCreating: false,
       isLoading: false,
       errorMessage: '',
-      form: profileMode
+      form: userList[0]
     }
   },
 

@@ -3,12 +3,20 @@
     <span class="loader-box"></span>
     <span class="loader-box"></span>
     <span class="loader-box"></span>
+    <div class="title">{{title}}</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'inner-loader'
+  name: 'inner-loader',
+
+  props: {
+    title: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 
@@ -23,6 +31,11 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .7);
+
+  .title {
+    color: $main-green;
+    letter-spacing: 1px;
+  }
 
   .loader-box {
     display: inline-block;
