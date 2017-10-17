@@ -1,5 +1,5 @@
 <template>
-  <div :class="['loader-container', inline ? 'inline-container' : 'block-container']">
+  <div class="loader-container">
     <div :class="['loader', end ? 'end' : '']"></div>
   </div>
 </template>
@@ -23,6 +23,18 @@ export default {
 
 <style lang="scss">
 .loader-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $transparent-black;
+
   .loader {
     display: inline-block;
     width: 50px;
@@ -37,18 +49,6 @@ export default {
       border: 2px solid $main-green;
     }
   }
-}
-
-.inline-container {
-  text-align: center;
-}
-
-.block-container {
-  display: flex;
-  flex: 1 1 auto;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
 }
 </style>
 

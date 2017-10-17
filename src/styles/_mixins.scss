@@ -5,3 +5,22 @@
     display: table;
   }
 }
+// TODO: define vars for colors
+@mixin extendWithTypes($property: background-color) {
+  &.minor {
+    #{$property} : #00ACC1;
+  }
+
+  &.medium {
+    #{$property} : #FDD835;
+  }
+
+  &.major {
+    #{$property} : #FB8C00;
+  }
+
+  &.blocker {
+    #{$property} : #D32F2F;
+  }
+}
+

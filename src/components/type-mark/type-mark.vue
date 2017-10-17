@@ -34,6 +34,8 @@ export default {
 
 <style lang="scss">
 .type-mark {
+  display: inline-block;
+
   .fa {
     font-size: 14px;
     color: $gray-1;

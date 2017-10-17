@@ -1,6 +1,6 @@
 <template>
   <div class="profile-card">
-    <div class="profile-card-header">
+     <div class="profile-card-header">
       <img class="profile-avatar" :src="profile.picture.large" alt="profile avatar" />
       <div class="profile-meta">
         <div class="profile-name">{{profile.name.first}} {{profile.name.last}}</div>
@@ -8,10 +8,10 @@
       </div>
       <slot name="header-tools"></slot>
     </div>
-    <div class="profile-card-body">
 
-    </div>
-    <div class="profile-card-footer" v-if="profile.roles.length">
+    <div class="profile-card-body"></div>
+
+     <div class="profile-card-footer" v-if="profile.roles.length">
       <div class="profile-skills">Roles:</div>
       <ul class="profile-skills-list">
         <li v-for="role in profile.roles" :style="{color: role.color, borderColor: role.color}" :key="role.key">{{role.name}}</li>
@@ -45,6 +45,12 @@ $card-offset: 25px;
   border-radius: 4px;
   margin-bottom: 25px;
 
+  &:hover {
+    .profile-card-tools {
+      display: inline-flex;
+    }
+  }
+
   &-header {
     padding: $card-offset;
     background-color: $black-1;
@@ -64,6 +70,10 @@ $card-offset: 25px;
     padding: $card-offset;
     background-color: $black-1;
     border-top: 2px solid #394d65;
+  }
+
+  .profile-card-tools {
+    display: none;
   }
 
   .profile-avatar {

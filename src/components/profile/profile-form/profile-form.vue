@@ -50,7 +50,7 @@
       <input id="profile-phone" type="text" v-model="form.phone" class="form-control" placeholder="Phone(optional)">
     </b-form-group>
 
-    <b-button type="submit" variant="primary" :disabled="loading">Submit</b-button>
+    <b-button type="submit" variant="primary" :disabled="loading">{{submitTitle}}</b-button>
   </b-form>
 </template>
 
@@ -65,13 +65,17 @@ export default {
       type: Object,
       default: profileMode
     },
-    'create-profile': {
+    'handle-profile': {
       type: Function,
       default: () => {}
     },
     loading: {
       type: Boolean,
       default: false
+    },
+    'submit-title': {
+      type: String,
+      default: 'Submit'
     }
   },
 
@@ -79,7 +83,7 @@ export default {
     onSubmit () {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          this.$emit('create-profile', this.form)
+          this.$emit('handle-profile', this.form)
         }
       })
     }

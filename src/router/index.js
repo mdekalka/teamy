@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import taskPage from '@/components/tasks/task-page/task-page'
+
 import taskProfile from '@/components/tasks/task-profile/task-profile'
 import createProfilePage from '@/pages/create-profile-page'
 import editProfilePage from '@/pages/edit-profile-page'
 import profileListPage from '@/pages/profile-list-page'
+import taskListPage from '@/pages/task-list-page'
 
 Vue.use(Router)
 
@@ -27,8 +28,8 @@ export default new Router({
     },
     {
       path: '/tasks',
-      name: 'taskPage',
-      component: taskPage
+      name: 'task-list',
+      component: taskListPage
     },
     {
       path: '/task/:id',

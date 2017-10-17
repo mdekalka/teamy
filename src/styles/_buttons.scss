@@ -40,12 +40,29 @@
 .btn-icon {
   border: none;
   outline: none;
-  padding: 4px 8px;
-  background-color: #1b1c20;
+  padding: 6px 12px;
+  background-color: $main-black;
   cursor: pointer;
 
+  &.danger {
+    .fa {
+      color: $red-2;
+    }
+  }
+
+  &.warning {
+    .fa {
+      color: $main-yellow;
+    }
+  }
+
   .fa {
+    font-size: 15px;
     color: $main-green;
+  }
+
+  &:hover {
+    background-color: $black;
   }
 }
 

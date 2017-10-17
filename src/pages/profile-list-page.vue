@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-list-page page">
+  <content-layout class="profile-list-page" :load-screen="isLoading">
     <b-container fluid>
       <b-row>
         <b-col>
@@ -12,33 +12,34 @@
       </b-row>
       <b-row>
         <b-col col md="4" v-for="profile in profiles" :key="profile.id">
-          <profile-card  :profile="profile" />
-            <profile-card-tools slot="header-tools" />
+          <profile-card :profile="profile" >
+             <profile-card-tools slot="header-tools" :route="profile.id" @handle-remove="removeProfile" />
           </profile-card>
         </b-col>
       </b-row>
     </b-container>
     <!-- with options -->
-    <side-panel :is-open="isPanelOpen">
+     <side-panel :is-open="isPanelOpen">
       piupipu
     </side-panel>
-    <loader v-if="isLoading" />
-  </div>
+  </content-layout>
 </template>
 
 <script>
+import contentLayout from '@/components/common/content-layout'
 import profileCard from '@/components/profile/profile-card/profile-card'
 import sidePanel from '@/components/side-panel/side-panel'
 import profileCardTools from '@/components/profile/profile-card-tools/profile-card-tools'
 import loader from '@/components/loader/loader'
 
-import { getUsers } from '@/components/profile/profile-api'
+import { getProfiles, removeProfileById } from '@/components/profile/profile-api'
 import { extendWithColors } from '@/components/profile/profile-service'
 
 export default {
   name: 'profile-list-page',
 
   components: {
+    contentLayout,
     profileCard,
     sidePanel,
     profileCardTools,
@@ -55,14 +56,15 @@ export default {
   },
 
   created () {
-    this.getUsers()
+    this.getProfiles()
   },
 
   methods: {
-    getUsers () {
+    getProfiles () {
       this.isLoading = true
 
-      getUsers().then(profiles => {
+      getProfiles().then(profiles => {
+        this.errorMessage = ''
         this.profiles = profiles.map(profile => {
           return { ...profile, roles: extendWithColors(profile.roles) }
         })
@@ -74,6 +76,13 @@ export default {
         this.isLoading = false
       })
     },
+
+    removeProfile (id) {
+      this.isLoading = true
+      this.errorMessage = ''
+      removeProfileById(id).then(this.getProfiles)
+    },
+
     onTogglePanelClick () {
       this.isPanelOpen = true
     }

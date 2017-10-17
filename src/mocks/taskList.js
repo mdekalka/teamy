@@ -9,7 +9,7 @@ const taskList = [
     sprint: '',
     labels: ['JS documentation', 'MDN'],
     environment: '',
-    assignee: null,
+    assignee: '1',
     reporter: null,
     votes: 0,
     dates: {
@@ -33,7 +33,7 @@ const taskList = [
     sprint: '',
     labels: ['JS documentation', 'MDN'],
     environment: '',
-    assignee: 1,
+    assignee: '2',
     reporter: null,
     votes: 0,
     dates: {
@@ -57,7 +57,7 @@ const taskList = [
     sprint: '',
     labels: ['JS documentation', 'MDN'],
     environment: '',
-    assignee: null,
+    assignee: '3',
     reporter: null,
     votes: 0,
     dates: {
@@ -81,7 +81,7 @@ const taskList = [
     sprint: '',
     labels: ['JS documentation', 'MDN'],
     environment: '',
-    assignee: null,
+    assignee: '4',
     reporter: null,
     votes: 0,
     dates: {
@@ -105,7 +105,7 @@ const taskList = [
     sprint: '',
     labels: [],
     environment: '',
-    assignee: null,
+    assignee: '5',
     reporter: null,
     votes: 0,
     dates: {
@@ -129,7 +129,7 @@ const taskList = [
     sprint: '',
     labels: [],
     environment: '',
-    assignee: null,
+    assignee: '1',
     reporter: null,
     votes: 0,
     dates: {
@@ -153,7 +153,7 @@ const taskList = [
     sprint: '',
     labels: [],
     environment: '',
-    assignee: null,
+    assignee: '2',
     reporter: null,
     votes: 0,
     dates: {

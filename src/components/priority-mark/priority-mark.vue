@@ -22,21 +22,7 @@ export default {
   height: 10px;
   border-radius: 50%;
 
-  &.minor {
-    background-color: #00ACC1;
-  }
-
-  &.medium {
-    background-color: #FDD835;
-  }
-
-  &.major {
-    background-color: #FB8C00;
-  }
-
-  &.blocker {
-    background-color: #D32F2F;
-  }
+  @include extendWithTypes();
 }
 </style>
 

@@ -4,7 +4,7 @@
       <b-row>
         <b-col col md="6">
           <header-title :title="'Create new profile:'" underline/>
-          <profile-form :form="form" @create-profile="createProfile" :loading="isLoading" />
+          <profile-form :form="form" @handle-profile="createProfile" :loading="isLoading" :submit-title="'Create'" />
         </b-col>
         <b-col col md="6">
           <header-title :title="'Profile preview:'" />
@@ -25,7 +25,7 @@ import headerTitle from '@/components/common/header-title.vue'
 import messagePanel from '@/components/common/message-panel'
 
 import profileMode from '@/components/profile/profile-model'
-import { addUser } from '@/components/profile/profile-api'
+import { addProfile } from '@/components/profile/profile-api'
 import { profile } from '@/config/messages'
 
 export default {
@@ -49,13 +49,12 @@ export default {
       this.afterCreating = true
       this.isLoading = true
 
-      addUser(newProfile).then(_ => {
+      addProfile(newProfile).then(_ => {
         this.errorMessage = ''
         this.form = profileMode
       })
-      .catch(err => {
-        this.errorMessage = err.status
-        console.log(err)
+      .catch(({ message }) => {
+        this.errorMessage = message
       })
       .finally(_ => {
         this.isLoading = false

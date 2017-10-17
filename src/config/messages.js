@@ -1,4 +1,8 @@
 export const profile = {
+  GET_PROFILE_FAILED: {
+    key: 'GET_PROFILE_FAILED',
+    text: 'Profile cannot be loaded'
+  },
   CREATE_PROFILE_SUCCESS: {
     key: 'CREATE_PROFILE_SUCCESS',
     text: 'New profile was successfully created.'

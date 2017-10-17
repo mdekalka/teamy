@@ -67,9 +67,9 @@
 </template>
 
 <script>
-import { getTaskById, updateTaskById } from '../task-page-api'
-import { getUserById } from '@/components/profile/profile-api'
-import taskProfileModel from '../task-profile-model'
+import { getTaskById, updateTaskById } from '../tasks-api'
+import { getProfileById } from '@/components/profile/profile-api'
+import taskProfileModel from '../tasks-model'
 
 import priorityMark from '@/components/priority-mark/priority-mark'
 import loader from '@/components/loader/loader'
@@ -123,7 +123,7 @@ export default {
           return
         }
 
-        return getUserById(this.task.assignee).then((user) => {
+        return getProfileById(this.task.assignee).then((user) => {
           this.task.assignee = { ...user, isFetched: true }
         })
       })
