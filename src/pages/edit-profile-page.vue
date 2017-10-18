@@ -9,7 +9,6 @@
         <b-col col md="6">
           <header-title :title="'Profile preview:'" />
           <profile-preview :profile="form" :is-loading="isLoading" />
-
           <message-panel :show="isShown" :message="activeMessage.message" :type="activeMessage.type" :show-time="showTime" />
         </b-col>
       </b-row>
@@ -24,7 +23,7 @@ import profilePreview from '@/components/profile/profile-preview/profile-preview
 import headerTitle from '@/components/common/header-title.vue'
 import messagePanel from '@/components/common/message-panel'
 
-import profileMode from '@/components/profile/profile-model'
+import profileModel from '@/components/profile/profile-model'
 import { getProfileById, updateProfileById } from '@/components/profile/profile-api'
 import { profile } from '@/config/messages'
 
@@ -39,7 +38,7 @@ export default {
       afterCreating: false,
       isLoading: false,
       errorMessage: '',
-      form: profileMode
+      form: profileModel
     }
   },
 
@@ -63,9 +62,9 @@ export default {
     loadProfile () {
       this.isLoading = true
 
-      getProfileById(this.$route.params.id).then(user => {
+      getProfileById(this.$route.params.id).then(profile => {
         this.errorMessage = ''
-        this.form = user || profileMode
+        this.form = profile || profileModel
       })
       .catch(this.handleError)
       .finally(this.handleFinally)

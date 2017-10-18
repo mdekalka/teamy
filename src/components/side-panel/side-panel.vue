@@ -10,14 +10,19 @@
 export default {
   name: 'side-panel',
 
-  props: ['isOpen', 'withBackdrop']
+  props: {
+    'is-open': {
+      type: Boolean,
+      default: false
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 .side-panel {
   position: fixed;
-  top: $header-height;
+  top: 0;
   right: 0;
   bottom: 0;
   transition: z-index ease-in .4s;

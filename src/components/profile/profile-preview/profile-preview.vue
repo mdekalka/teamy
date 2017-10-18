@@ -1,15 +1,15 @@
 <template>
   <div class="profile-preview">
     <div class="profile-header">
-      <img class="profile-avatar" src="~@/assets/default-avatar.png" alt="">
+      <img class="profile-avatar" :src="profileAvatar" alt="">
       <div class="profile-meta">
         <div class="profile-name">{{profile.name.first}} {{profile.name.last}}</div>
         <div class="profile-title">{{profile.title}}</div>
       </div>
     </div>
     <div v-if="profile.email || profile.phone" class="profile-body">
-      <div><span v-show="profile.email" class="text-label">Email:</span> {{profile.email}}</div>
-      <div><span v-show="profile.phone" class="text-label">Phone:</span> {{profile.phone}}</div>
+      <item-row title="Email:">{{profile.email}}</item-row>
+      <item-row title="Phone:">{{profile.phone}}</item-row>
     </div>
     <inner-loader v-if="isLoading" />
   </div>
@@ -17,11 +17,15 @@
 
 <script>
 import innerLoader from '@/components/inner-loader/inner-loader'
+import itemRow from '@/components/common/item-row'
+
+import profileModel from '@/components/profile/profile-model'
+import defaultAvatar from '@/assets/default-avatar.png'
 
 export default {
   name: 'profile-preview',
 
-  components: { innerLoader },
+  components: { innerLoader, itemRow },
 
   props: {
     isLoading: {
@@ -30,9 +34,13 @@ export default {
     },
     profile: {
       type: Object,
-      default: {
-        name: {}
-      }
+      default: profileModel
+    }
+  },
+
+  computed: {
+    profileAvatar () {
+      return this.profile.picture.large || defaultAvatar
     }
   }
 }
@@ -72,9 +80,4 @@ export default {
   background-color: $black-2;
   font-size: 15px;
 }
-
-.text-label {
-  color: $gray-2;
-}
-
 </style>

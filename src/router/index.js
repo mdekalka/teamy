@@ -6,6 +6,7 @@ import createProfilePage from '@/pages/create-profile-page'
 import editProfilePage from '@/pages/edit-profile-page'
 import profileListPage from '@/pages/profile-list-page'
 import taskListPage from '@/pages/task-list-page'
+import profileViewPage from '@/pages/profile-view-page'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/task/:id',
       name: 'task',
       component: taskProfile
+    },
+    {
+      path: '/profile/:id',
+      name: 'profile-view',
+      component: profileViewPage
     }
   ]
 })

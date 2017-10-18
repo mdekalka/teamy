@@ -56,11 +56,11 @@ export default {
   },
 
   created () {
-    this.getProfiles()
+    this.loadProfiles()
   },
 
   methods: {
-    getProfiles () {
+    loadProfiles () {
       this.isLoading = true
 
       getProfiles().then(profiles => {

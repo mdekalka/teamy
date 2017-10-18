@@ -7,7 +7,7 @@ let tasks = taskList
 const promiseTimeout = 2000
 
 export const getTasks = () => {
-  return wait(0).then(_ => {
+  return wait(promiseTimeout).then(_ => {
     const allAssignees = tasks.map((task) => {
       if (task.assignee) {
         return getProfileById(task.assignee)

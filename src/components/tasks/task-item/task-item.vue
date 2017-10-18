@@ -7,7 +7,7 @@
       </div>
       <div class="task-header-right">
         <priority-mark :color="task.priority" v-b-tooltip.left :title="task.priority" />
-         <div class="task-assignee-avatar" v-b-tooltip.top container="task-list" :title="fullName">
+        <div class="task-assignee-avatar" v-if="hasAssignee" :title="fullName">
           <img :src="task.assignee.picture.thumbnail" class="avatar-image" alt="user avatar">
         </div>
       </div>
@@ -72,6 +72,10 @@ export default {
     background-color: $black-2;
   }
 
+  &.sortable-chosen {
+    background-color: $black;
+  }
+
   .task-header {
     display: flex;
     align-items: center;
@@ -105,12 +109,12 @@ export default {
   }
 
   .task-assignee-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
     display: inline-block;
+    width: 35px;
+    height: 35px;
 
     .avatar-image {
+      border-radius: 50%;
       height: 100%;
       width: 100%;
     }

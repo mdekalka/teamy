@@ -5,7 +5,7 @@ let profiles = profileList
 const promiseTimeout = 2000
 
 export const getProfileById = (id) => {
-  return wait(promiseTimeout).then(_ => {
+  return wait(0).then(_ => {
     const profile = profiles.find((profile) => profile.id === id)
 
     if (profile) {

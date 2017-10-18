@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="page-wrapper">
-      <main-header />
+      <main-header title="Learn Vue/Vuex by building CRUD application." />
       <main class="main">
         <side-menu />
         <div class="main-content">

@@ -21,17 +21,15 @@
 </template>
 
 <script>
+import profileModel from '@/components/profile/profile-model'
+
 export default {
   name: 'profile-card',
 
   props: {
     profile: {
       type: Object,
-      default: {
-        picture: {},
-        name: {},
-        skills: []
-      }
+      default: profileModel
     }
   }
 }

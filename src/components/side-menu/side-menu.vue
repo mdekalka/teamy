@@ -1,47 +1,52 @@
 <template>
   <div class="side-menu">
     <nav class="side-nav">
-      <ul class="side-menu-list">
-        <!--TODO: Refactor this to array of lists  -->
-        <template v-for="menuItem in sideMenu">
-          <router-link
+      <ul class="side-menu-list" @mouseleave="onMenuLeave">
+         <template v-for="menuItem in sideMenu">
+           <router-link
             class="side-menu-item"
             tag="li"
             :key="menuItem.id"
             exact
             :to="menuItem.route"
             @click.native="onLinkClick"
-            @mouseover.native="onLinkOver"
-            @mouseout.native="onLinkOut"><a>{{menuItem.name}}<i :class="['fa', menuItem.icon]" aria-hidden="true"></i></a>
+            @mouseover.native="onLinkOver"><a>{{menuItem.name}}<i :class="['fa', menuItem.icon]" aria-hidden="true"></i></a>
           </router-link>
         </template>
       </ul>
-      <div ref="magicLine" class="magic-line"></div>
+      <!-- TODO: Create own magic-line directive  -->
+      <div ref="magicLine" v-show="magicLineOptions.show" :style="{height: magicLineOptions.height, top: magicLineOptions.top}" class="magic-line"></div>
     </nav>
   </div>
 </template>
 
 <script>
-import { setStyles } from '@/utils/utils'
-
 import { SIDEMENU_ITEMS } from '@/config/config'
 
 export default {
   name: 'side-menu',
+
+  data () {
+    return {
+      showMagicLine: false,
+      magicLineOptions: {
+        show: false,
+        height: 'auto',
+        top: 'auto'
+      }
+    }
+  },
 
   created () {
     this.sideMenu = SIDEMENU_ITEMS
   },
 
   mounted () {
-    this.link = document.querySelector('.router-link-active')
+    this.updateLine()
+  },
 
-    if (this.link) {
-      setStyles(this.$refs.magicLine, {
-        height: `${this.link.offsetHeight}px`,
-        top: `${this.link.offsetTop}px`
-      })
-    }
+  watch: {
+    '$route': 'updateLine'
   },
 
   methods: {
@@ -49,26 +54,34 @@ export default {
 
     },
 
-    onLinkOver (event) {
-      const link = event.currentTarget
-
-      if (link) {
-        setStyles(this.$refs.magicLine, {
-          height: `${link.offsetHeight}px`,
-          top: `${link.offsetTop}px`
-        })
+    updateStyles (target) {
+      if (target) {
+        this.magicLineOptions.show = true
+        this.magicLineOptions.height = `${target.offsetHeight}px`
+        this.magicLineOptions.top = `${target.offsetTop}px`
+      } else {
+        this.magicLineOptions.show = false
       }
     },
 
-    onLinkOut () {
+    updateLine () {
+      window.requestAnimationFrame(_ => {
+        this.link = document.querySelector('.router-link-active')
+
+        this.updateStyles(this.link)
+      })
+    },
+
+    onLinkOver (event) {
+      const link = event.currentTarget
+
+      this.updateStyles(link)
+    },
+
+    onMenuLeave (event) {
       const link = document.querySelector('.router-link-active')
 
-      if (link) {
-        setStyles(this.$refs.magicLine, {
-          height: `${link.offsetHeight}px`,
-          top: `${link.offsetTop}px`
-        })
-      }
+      this.updateStyles(link)
     }
   }
 }
