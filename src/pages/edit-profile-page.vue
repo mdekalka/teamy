@@ -9,7 +9,7 @@
         <b-col col md="6">
           <header-title :title="'Profile preview:'" />
           <profile-preview :profile="form" :is-loading="isLoading" />
-          <message-panel :show="isShown" :message="activeMessage.message" :type="activeMessage.type" :show-time="showTime" />
+          <message-panel :show="isUpdateSuccess" :message="activeMessage.message" :type="activeMessage.type" :show-time="showTime" />
         </b-col>
       </b-row>
       <message-panel :show="isProfileFailed" :message="getFailedMessage" :type="'danger'" />
@@ -35,7 +35,7 @@ export default {
   data () {
     return {
       showTime: 1500,
-      afterCreating: false,
+      isUpdated: false,
       isLoading: false,
       errorMessage: '',
       form: profileModel
@@ -75,12 +75,12 @@ export default {
         return
       }
 
-      this.afterCreating = true
       this.isLoading = true
 
       updateProfileById(this.$route.params.id, profile).then(updatedProfile => {
         this.errorMessage = ''
-        this.form = updatedProfile
+        this.isUpdated = true
+        this.form = updatedProfile.data
       })
       .catch(this.handleError)
       .finally(this.handleFinally)
@@ -103,8 +103,8 @@ export default {
       return profile.GET_PROFILE_FAILED.text
     },
 
-    isShown () {
-      return this.afterCreating && !this.isLoading
+    isUpdateSuccess () {
+      return this.isUpdated && !this.isLoading
     }
   }
 }

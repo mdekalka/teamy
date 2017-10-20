@@ -67,18 +67,18 @@
 </template>
 
 <script>
-import { getTaskById, updateTaskById } from '../tasks-api'
+import { getTaskById, updateTaskById } from '@/components/tasks/tasks-api'
 import { getProfileById } from '@/components/profile/profile-api'
-import taskProfileModel from '../tasks-model'
+import taskProfileModel from '@/components/tasks/tasks-model'
 
 import priorityMark from '@/components/priority-mark/priority-mark'
 import loader from '@/components/loader/loader'
-import taskBlock from '../task-block/task-block'
-import taskEditModal from '../task-edit-modal/task-edit-modal'
+import taskBlock from '@/components/tasks/task-block/task-block'
+import taskEditModal from '@/components/tasks/task-edit-modal/task-edit-modal'
 import innerLoader from '@/components/inner-loader/inner-loader'
 
 export default {
-  name: 'task-profile',
+  name: 'task-view-page',
 
   components: {
     priorityMark,
@@ -99,16 +99,20 @@ export default {
     }
   },
 
+  watch: {
+    '$route': 'loadTaskById'
+  },
+
   created () {
-    this.loadTaskById(this.$route.params.id)
-    this.routeItems = [{ text: 'Task list', to: { name: 'taskPage' } }, { text: 'Task', active: true }]
+    this.loadTaskById()
+    this.routeItems = [{ text: 'Task list', to: { name: 'task-view' } }, { text: 'Task', active: true }]
   },
 
   methods: {
-    loadTaskById (id) {
+    loadTaskById () {
       this.isLoading = true
 
-      getTaskById(+id).then(task => {
+      getTaskById(+this.$route.params.id).then(task => {
         this.task = task
 
         return this.task

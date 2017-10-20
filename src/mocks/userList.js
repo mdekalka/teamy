@@ -21,7 +21,7 @@ const userList = [
       thumbnail: 'https://randomuser.me/api/portraits/thumb/women/67.jpg'
     },
     tasks: [1],
-    roles: [{ key: 1, name: 'UI Design' }, { key: 2, name: 'UX Desing' }, { key: 3, name: 'Frontend' }, { key: 4, name: 'Backend' }]
+    roles: [{ id: 1, key: 1, name: 'UI Design' }, { id: 2, key: 2, name: 'UX Desing' }, { id: 3, key: 3, name: 'Frontend' }, { id: 4, key: 4, name: 'Backend' }]
   },
   {
     id: '2',

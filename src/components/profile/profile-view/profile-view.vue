@@ -10,18 +10,17 @@
                 <div>
                   <h1 class="profile-name">{{fullName}}</h1>
                   <div class="profile-title">{{profile.title}}</div>
-                  <router-link v-if="profile.id" :to="{ name: 'edit-profile', params: { id: profile.id  }}" class="btn-icon">
-                    <i class="fa fw fa-pencil" aria-hidden="true"></i>
-                  </router-link>
                 </div>
               </div>
+              <profile-view-tools :id="profile.id" @on-remove="onRemove()" />
             </div>
           </b-col>
           <b-col md="6">
             <div class="profile-box box-additional">
-              <item-row offset="100" title="Phone:">{{profile.phone}}</item-row>
-              <item-row offset="100" title="Email:">{{profile.email}}</item-row>
-              <item-row offset="100" title="Location:">{{fullLocation}}</item-row>
+              <item-row offset="100" title="Phone:">{{profile.phone || noValue}}</item-row>
+              <item-row offset="100" title="Email:">{{profile.email || noValue}}</item-row>
+              <item-row offset="100" title="Location:">{{fullLocation || noValue}}</item-row>
+              <item-row offset="100" title="Registered Date:">{{registeredDate}}</item-row>
             </div>
           </b-col>
         </b-row>
@@ -31,20 +30,32 @@
 </template>
 
 <script>
-import itemRow from '@/components/common/item-row'
+import moment from 'moment'
 
-import profileModel from '@/components/profile/profile-model'
+import itemRow from '@/components/common/item-row'
+import profileViewTools from '@/components/profile/profile-view-tools/profile-view-tools'
+
+import profileModel, { getLocation } from '@/components/profile/profile-model'
 import defaultAvatar from '@/assets/default-avatar.png'
+import { DATE_FORMAT, NO_VALUE } from '@/config/config'
 
 export default {
   name: 'profile-view',
 
-  components: { itemRow },
+  components: { itemRow, profileViewTools },
 
   props: {
     profile: {
       type: Object,
       default: profileModel
+    },
+    'no-value': {
+      type: String,
+      default: NO_VALUE
+    },
+    'on-remove': {
+      type: Function,
+      default: () => {}
     }
   },
 
@@ -54,7 +65,11 @@ export default {
     },
 
     fullLocation () {
-      return `${this.profile.location.city}, ${this.profile.location.street}`
+      return getLocation(this.profile.location)
+    },
+
+    registeredDate () {
+      return moment(this.profile.registered).format(DATE_FORMAT.default)
     },
 
     profileAvatar () {
@@ -67,6 +82,10 @@ export default {
 <style lang="scss">
 .profile-view {
   background: linear-gradient(120deg, $black-1 50%, $black-2 50%);
+
+  .profile-view-tools {
+    margin-top: 20px;
+  }
 
   .profile-box {
     padding: 25px 0;

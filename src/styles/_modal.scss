@@ -12,6 +12,12 @@
       color: $main-green;
     }
 
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+      padding: 20px;;
+    }
+
     .modal-header {
       border-bottom-color: $main-gray;
     }

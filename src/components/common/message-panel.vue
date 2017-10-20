@@ -51,10 +51,13 @@ export default {
   watch: {
     show: function (value) {
       if (value && !this.timeoutId && this.showTime) {
+        this.autoHide = null
+
         this.timeoutId = setTimeout(_ => {
           this.selfDestroy()
           clearTimeout(this.timeoutId)
-        }, 1000)
+          this.timeoutId = null
+        }, this.showTime)
       }
     }
   }

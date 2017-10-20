@@ -3,7 +3,7 @@
     <div class="task-header">
       <div class="task-header-left">
         <type-mark :type="task.type" v-b-tooltip.top :title="task.type" />
-        <router-link :to="{ name: 'task', params: { id: task.id }}" class="task-name">{{task.name}}</router-link>
+        <router-link :to="{ name: 'task-view', params: { id: task.id }}" class="task-name">{{task.name}}</router-link>
       </div>
       <div class="task-header-right">
         <priority-mark :color="task.priority" v-b-tooltip.left :title="task.priority" />

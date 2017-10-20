@@ -43,3 +43,10 @@ export const SIDEMENU_ITEMS = [
   { id: 2, route: '/profiles', icon: 'fw fa-users', name: 'Profile list' },
   { id: 3, route: '/tasks', icon: 'fw fa-id-card', name: 'Task list' }
 ]
+
+export const DATE_FORMAT = {
+  default: 'MM/DD/YYYY',
+  month: 'MMMM',
+  day: 'DD',
+  year: 'YYYY'
+}

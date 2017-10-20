@@ -1,7 +1,11 @@
 <template>
   <div class="profile-card-tools">
-    <router-link :to="{ name: 'profile-view', params: { id: route }}" class="btn-icon"><i class="fa fw fa-link" aria-hidden="true"></i></router-link>
-    <router-link :to="{ name: 'edit-profile', params: { id: route }}" class="btn-icon"><i class="fa fw fa-pencil" aria-hidden="true"></i></router-link>
+    <router-link :to="{ name: 'profile-view', params: { id: route }}" class="btn-icon">
+      <i class="fa fw fa-link" aria-hidden="true"></i>
+    </router-link>
+    <router-link :to="{ name: 'edit-profile', params: { id: route }}" class="btn-icon">
+      <i class="fa fw fa-pencil" aria-hidden="true"></i>
+    </router-link>
     <button class="btn-icon danger" @click="$emit('handle-remove', route)"><i class="fa fw fa-trash" aria-hidden="true"></i></button>
   </div>
 </template>

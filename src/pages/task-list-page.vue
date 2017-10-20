@@ -51,6 +51,7 @@ import taskItem from '@/components/tasks/task-item/task-item'
 import itemRow from '@/components/common/item-row'
 
 import { getTasks } from '@/components/tasks/tasks-api'
+import { getProfileById } from '@/components/profile/profile-api'
 
 export default {
   name: 'task-list-page',
@@ -101,7 +102,19 @@ export default {
 
       getTasks().then(tasks => {
         this.tasks = tasks
-        this.currentTask = this.tasks[0]
+
+        const allAssignees = this.tasks.map((task) => {
+          if (task.assignee) {
+            return getProfileById(task.assignee)
+          }
+        })
+
+        return Promise.all(allAssignees)
+      })
+      .then(assignees => {
+        this.tasks.forEach((task, index) => {
+          task.assignee = assignees ? { ...assignees[index] } : {}
+        })
       })
       .catch(({ message }) => {
         this.errorMessage = message

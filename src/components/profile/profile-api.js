@@ -1,58 +1,29 @@
-import { wait } from '@/config/api'
-import profileList from '@/mocks/userList'
-
-let profiles = profileList
-const promiseTimeout = 2000
+import axios from 'axios'
 
 export const getProfileById = (id) => {
-  return wait(0).then(_ => {
-    const profile = profiles.find((profile) => profile.id === id)
-
-    if (profile) {
-      return profile
-    } else {
-      throw new Error('User was not found')
-    }
-  })
+  return axios.get(`/profiles/${id}`).then(({ data }) => data)
 }
 
 export const getProfiles = () => {
-  return wait(promiseTimeout).then(_ => {
-    return profiles
-  })
+  return axios.get('/profiles').then(({ data }) => data)
 }
 
 export const addProfile = (profile) => {
-  return wait(promiseTimeout).then(() => {
-    profiles.push(profile)
-
-    return profiles
-  })
+  return axios.post('/profiles', profile).then(({ data }) => data)
 }
 
 export const updateProfileById = (id, data) => {
-  return wait(promiseTimeout).then(_ => {
-    const currentUser = profiles.find(profile => profile.id === id)
-
-    if (currentUser) {
-      return { ...currentUser, data }
-    } else {
-      throw new Error('User was not found')
-    }
-  })
+  return axios.patch(`/profiles/${id}`, { data }).then(({ data }) => data)
 }
 
 export const removeProfileById = (id) => {
-  return wait(promiseTimeout).then(_ => {
-    profiles = profiles.filter(profile => profile.id !== id)
-
-    return id
-  })
+  return axios.delete(`/profiles/${id}`).then(({ data }) => data)
 }
 
 export default {
-  getProfiles,
   getProfileById,
+  getProfiles,
   addProfile,
-  updateProfileById
+  updateProfileById,
+  removeProfileById
 }

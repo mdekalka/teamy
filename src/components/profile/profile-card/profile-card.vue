@@ -14,7 +14,7 @@
      <div class="profile-card-footer" v-if="profile.roles.length">
       <div class="profile-skills">Roles:</div>
       <ul class="profile-skills-list">
-        <li v-for="role in profile.roles" :style="{color: role.color, borderColor: role.color}" :key="role.key">{{role.name}}</li>
+        <li v-for="role in profile.roles" :style="{borderColor: role.color}" :key="role.key">{{role.name}}</li>
       </ul>
     </div>
   </div>
@@ -81,10 +81,6 @@ $card-offset: 25px;
     margin-right: 15px;
   }
 
-  .profile-name {
-    margin-bottom: 6px;
-  }
-
   .profile-title {
     color: $gray-5;
   }
@@ -102,6 +98,7 @@ $card-offset: 25px;
         display: inline-block;
         border: 1px solid $gray-5;
         border-radius: 10px;
+        font-size: 14px;
       }
     }
   }

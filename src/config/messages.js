@@ -18,6 +18,10 @@ export const profile = {
   UPDATE_PROFILE_FAILED: {
     key: 'UPDATE_PROFILE_FAILED',
     text: 'Failed to update current profile.'
+  },
+  REDIRECT_TO_PROFILE: {
+    key: 'REDIRECT_TO_PROFILE',
+    text: 'Redirecting to created user'
   }
 }
 

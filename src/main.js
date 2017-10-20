@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import VeeValidate from 'vee-validate'
+import axios from 'axios'
 
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -18,6 +19,9 @@ Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
 Vue.use(VeeValidate)
+
+axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 /* eslint-disable no-new */
 new Vue({

@@ -13,7 +13,9 @@ const profileMode = {
     street: '',
     city: '',
     state: '',
-    postcode: null
+    postcode: null,
+    latitude: null,
+    longitude: null
   },
   picture: {
     large: '',
@@ -21,6 +23,21 @@ const profileMode = {
   },
   tasks: [],
   roles: []
+}
+
+export const getLocation = (currentLocation) => {
+  const keys = ['city', 'state', 'street']
+  let location = []
+
+  keys.reduce((init, key) => {
+    if (currentLocation[key]) {
+      init.push(currentLocation[key])
+
+      return init
+    }
+  }, location)
+
+  return location.join(', ')
 }
 
 export default profileMode

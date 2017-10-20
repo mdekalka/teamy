@@ -10,6 +10,7 @@
           <header-title :title="'Profile preview:'" />
           <profile-preview :profile="form" :is-loading="isLoading" />
           <message-panel :show="isShown" :message="activeMessage.message" :type="activeMessage.type" :show-time="showTime" />
+          <message-panel :show="isRedirect" :message="redirectMessage" :show-time="redirectTime" />
         </b-col>
       </b-row>
     </b-container>
@@ -17,7 +18,7 @@
 </template>
 
 <script>
-import cuid from 'cuid'
+import moment from 'moment'
 
 import profileForm from '@/components/profile/profile-form/profile-form.vue'
 import profilePreview from '@/components/profile/profile-preview/profile-preview.vue'
@@ -35,8 +36,10 @@ export default {
 
   data () {
     return {
-      showTime: 1500,
+      showTime: 2000,
+      redirectTime: 2000,
       afterCreating: false,
+      isRedirect: false,
       isLoading: false,
       errorMessage: '',
       form: profileMode
@@ -45,13 +48,21 @@ export default {
 
   methods: {
     createProfile (profile) {
-      const newProfile = { ...profile, id: cuid() }
+      const newProfile = { ...profile, registered: moment() }
       this.afterCreating = true
       this.isLoading = true
 
-      addProfile(newProfile).then(_ => {
+      addProfile(newProfile).then(profile => {
         this.errorMessage = ''
         this.form = profileMode
+        this.isRedirect = true
+
+        setTimeout(_ => {
+          this.$router.push({
+            name: 'profile-view',
+            params: { id: profile.id }
+          })
+        }, this.redirectTime)
       })
       .catch(({ message }) => {
         this.errorMessage = message
@@ -68,6 +79,10 @@ export default {
         message: this.errorMessage ? profile.CREATE_PROFILE_FAILED.text : profile.CREATE_PROFILE_SUCCESS.text,
         type: this.errorMessage ? 'danger' : ''
       }
+    },
+
+    redirectMessage () {
+      return profile.REDIRECT_TO_PROFILE.text
     },
 
     isShown () {

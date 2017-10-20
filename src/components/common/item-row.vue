@@ -26,6 +26,7 @@ export default {
 .item-row {
   word-break: break-word;
   margin-bottom: 10px;
+  @include clearfix();
 }
 
 .item-row-title {
