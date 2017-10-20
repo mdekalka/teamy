@@ -12,7 +12,7 @@
                   <div class="profile-title">{{profile.title}}</div>
                 </div>
               </div>
-              <profile-view-tools :id="profile.id" @on-remove="onRemove()" />
+              <profile-view-tools :id="profile.id" @on-remove="removeHandler" />
             </div>
           </b-col>
           <b-col md="6">
@@ -56,6 +56,12 @@ export default {
     'on-remove': {
       type: Function,
       default: () => {}
+    }
+  },
+
+  methods: {
+    removeHandler (id) {
+      this.$emit('on-remove', id)
     }
   },
 
