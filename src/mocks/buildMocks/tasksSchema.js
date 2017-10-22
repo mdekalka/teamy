@@ -1,5 +1,3 @@
-const profileSchema = require('./profileSchema')
-
 const tasksSchema = {
   type: 'array',
   minItems: 25,

@@ -3,6 +3,7 @@ textarea.form-control {
   background-color: $black-2;
   color: $gray-4;
   border-radius: 0;
+  border: 1px solid transparent;
 
   &:focus {
     background-color: $black-2;

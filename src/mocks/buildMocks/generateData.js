@@ -8,12 +8,14 @@ const profiles = jsf(profilesSchema)
 const tasks = jsf(tasksSchema)
 
 const randomBetween = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 tasks.forEach(task => {
-  task.assignee = profiles[randomBetween(0, profiles.lenght - 1)]
+  task.assignee = profiles[randomBetween(0, profiles.length - 1)]
 })
+
+console.log(tasks)
 
 fs.writeFile('./src/db.json', JSON.stringify({ profiles, tasks }), function (err) {
   if (err) {

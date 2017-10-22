@@ -22,6 +22,14 @@ export const profile = {
   REDIRECT_TO_PROFILE: {
     key: 'REDIRECT_TO_PROFILE',
     text: 'Redirecting to created user'
+  },
+  DELETE_PROFILE_SUCCESS: {
+    key: 'DELETE_PROFILE_SUCCESS',
+    text: 'Profile was successfully deleted.'
+  },
+  DELETE_PROFILE_FAILED: {
+    key: 'DELETE_PROFILE_FAILED',
+    text: 'Failed to delete current profile.'
   }
 }
 

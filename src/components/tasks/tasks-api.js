@@ -1,14 +1,13 @@
 import { wait } from '@/config/api'
 import { STATUS } from '@/config/config'
 import taskList from '@/mocks/taskList'
+import axios from 'axios'
 
 let tasks = taskList
 const promiseTimeout = 2000
 
 export const getTasks = () => {
-  return wait(promiseTimeout).then(_ => {
-    return [ ...tasks ]
-  })
+  return axios.get(`/tasks/`).then(({ data }) => data)
 }
 
 export const getTaskById = (id) => {
@@ -31,11 +30,3 @@ export const updateTaskById = (id, updatedTask) => {
   })
 }
 
-// Not used for now
-// export const getFilteredTasks = (type, reversed) => {
-//   return wait(promiseTimeout).then(_ => {
-//     return tasks.sort((a, b) => {
-//       return (a[type] === b[type] ? 0 : a[type] < b[type] ? -1 : 1) * (reversed ? -1 : 1)
-//     })
-//   })
-// }

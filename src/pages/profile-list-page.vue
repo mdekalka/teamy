@@ -68,7 +68,6 @@ export default {
         this.profiles = profiles.map(profile => {
           return { ...profile, roles: extendWithColors(profile.roles) }
         })
-        console.log(this.profiles)
       })
       .catch((err) => {
         this.errorMessage = err

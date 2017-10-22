@@ -1,7 +1,8 @@
 <template>
   <content-layout class="profile-view-page" :load-screen="isLoading">
-    <profile-view v-if="!isProfileFailed" :profile="profile" :delete-state="isDeleted" @on-remove="removeProfile" />
-    <message-panel :show="isProfileFailed" :message="errorLoadMessage" :type="'danger'" />
+    <profile-view v-if="!isLoadFailed && !isDeleteFailed && !isDeleted" :profile="profile" :delete-state="isDeleted" @on-remove="removeProfile" />
+    <message-panel :show="isLoadFailed" :message="loadErrorMessage" type="danger" />
+    <message-panel :show="isDeleted || !!errorsInfo.deleteError" :message="deleteErrorInfo.message" :type="deleteErrorInfo.type" />
   </content-layout>
 </template>
 
@@ -24,7 +25,10 @@ export default {
       profile: profileModel,
       isLoading: false,
       isDeleted: false,
-      errorMessage: ''
+      errorsInfo: {
+        loadError: '',
+        deleteError: ''
+      }
     }
   },
 
@@ -41,11 +45,11 @@ export default {
       this.isLoading = true
 
       getProfileById(this.$route.params.id).then(profile => {
-        this.errorMessage = ''
+        this.errorsInfo.loadError = ''
         this.profile = profile
       })
       .catch(({ message }) => {
-        this.errorMessage = message
+        this.errorsInfo.loadError = message
       })
       .finally(_ => {
         this.isLoading = false
@@ -53,20 +57,39 @@ export default {
     },
 
     removeProfile (id) {
-      debugger
-      removeProfileById(id).then(data => {
-        debugger
+      this.isLoading = true
+
+      removeProfileById(id).then(_ => {
+        this.errorsInfo.deleteError = ''
+        this.isDeleted = true
+      })
+      .catch(({ message }) => {
+        this.this.errorsInfo.deleteError = message
+      })
+      .finally(_ => {
+        this.isLoading = false
       })
     }
   },
 
   computed: {
-    errorLoadMessage () {
+    loadErrorMessage () {
       return profile.GET_PROFILE_FAILED.text
     },
 
-    isProfileFailed () {
-      return !this.isLoading && !!this.errorMessage
+    deleteErrorInfo () {
+      return {
+        message: this.isDeleted ? profile.DELETE_PROFILE_SUCCESS.text : profile.DELETE_PROFILE_FAILED.text,
+        type: this.isDeleted ? '' : 'danger'
+      }
+    },
+
+    isLoadFailed () {
+      return !this.isLoading && !!this.errorsInfo.loadError
+    },
+
+    isDeleteFailed () {
+      return !this.isLoading && !!this.errorsInfo.deleteError
     }
   }
 }
