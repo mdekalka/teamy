@@ -1,5 +1,8 @@
 <template>
   <div class="profile-card-tools">
+    <button class="btn-icon" v-b-toggle.accordion1 @click="$emit('handle-collapse')">
+      <i :class="['fa', showCollapse ? 'fa-compress' : 'fa-expand']" aria-hidden="true"></i>
+    </button>
     <router-link :to="{ name: 'profile-view', params: { id: route }}" class="btn-icon">
       <i class="fa fw fa-link" aria-hidden="true"></i>
     </router-link>
@@ -19,7 +22,15 @@ export default {
       type: [String, Number],
       default: null
     },
+    'show-collapse': {
+      type: Boolean,
+      default: false
+    },
     'handle-remove': {
+      type: Function,
+      default: () => {}
+    },
+    'handle-collapse': {
       type: Function,
       default: () => {}
     }

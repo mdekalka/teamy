@@ -5,22 +5,20 @@
         <b-col>
           <div class="options-panel">
             <div class="btn-group">
-              <b-button class="toggle-panel" @click="onTogglePanelClick"><i class="fa fa-filter" aria-hidden="true"></i></b-button>
+              <b-button class="toggle-panel" @click="onTogglePanelClick">
+                <i class="fa fa-filter" aria-hidden="true"></i>
+              </b-button>
             </div>
           </div>
         </b-col>
       </b-row>
       <b-row>
         <b-col col md="4" v-for="profile in profiles" :key="profile.id">
-          <profile-card :profile="profile" >
-             <profile-card-tools slot="header-tools" :route="profile.id" @handle-remove="removeProfile" />
-          </profile-card>
+          <profile-card :profile="profile" :route="profile.id" @handle-remove="removeProfile" />
         </b-col>
       </b-row>
     </b-container>
-    <!-- with options -->
      <side-panel :is-open="isPanelOpen">
-      piupipu
     </side-panel>
   </content-layout>
 </template>
@@ -29,7 +27,7 @@
 import contentLayout from '@/components/common/content-layout'
 import profileCard from '@/components/profile/profile-card/profile-card'
 import sidePanel from '@/components/side-panel/side-panel'
-import profileCardTools from '@/components/profile/profile-card-tools/profile-card-tools'
+
 import loader from '@/components/loader/loader'
 
 import { getProfiles, removeProfileById } from '@/components/profile/profile-api'
@@ -42,7 +40,6 @@ export default {
     contentLayout,
     profileCard,
     sidePanel,
-    profileCardTools,
     loader
   },
 
@@ -69,8 +66,8 @@ export default {
           return { ...profile, roles: extendWithColors(profile.roles) }
         })
       })
-      .catch((err) => {
-        this.errorMessage = err
+      .catch(({ message }) => {
+        this.errorMessage = message
       })
       .finally(() => {
         this.isLoading = false
@@ -79,8 +76,17 @@ export default {
 
     removeProfile (id) {
       this.isLoading = true
-      this.errorMessage = ''
-      removeProfileById(id).then(this.getProfiles)
+
+      removeProfileById(id).then(_ => {
+        this.errorMessage = ''
+        this.profiles = this.profiles.filter(profile => profile.id !== id)
+      })
+      .catch(({ message }) => {
+        this.errorMessage = message
+      })
+      .finally(_ => {
+        this.isLoading = false
+      })
     },
 
     onTogglePanelClick () {

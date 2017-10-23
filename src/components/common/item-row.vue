@@ -27,6 +27,10 @@ export default {
   word-break: break-word;
   margin-bottom: 10px;
   @include clearfix();
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .item-row-title {

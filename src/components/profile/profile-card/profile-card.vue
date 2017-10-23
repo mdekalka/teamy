@@ -1,15 +1,26 @@
 <template>
   <div class="profile-card">
      <div class="profile-card-header">
-      <img class="profile-avatar" :src="profile.picture.large" alt="profile avatar" />
-      <div class="profile-meta">
-        <div class="profile-name">{{profile.name.first}} {{profile.name.last}}</div>
-        <div class="profile-title">{{profile.title}}</div>
-      </div>
-      <slot name="header-tools"></slot>
+       <div class="profile-card-header-info">
+          <img class="profile-avatar" :src="profile.picture.large" alt="profile avatar" />
+          <div class="profile-meta">
+            <div class="profile-name">{{profile.name.first}} {{profile.name.last}}</div>
+            <div class="profile-title">{{profile.title}}</div>
+          </div>
+          <profile-card-tools
+            @handle-remove="onProfileRemove" :route="profile.id" :show-collapse="showCollapse"
+            @handle-collapse="onToggleCollaps" />
+       </div>
+      <b-collapse class="profile-meta-info" :id="`profile-${profile.id}`" v-model="showCollapse" role="tabpanel">
+        <item-row offset="100" title="Email:">{{profile.email}}</item-row>
+        <item-row offset="100" title="Phone:">{{profile.phone}}</item-row>
+        <item-row offset="100" title="Location:">{{getLocation}}</item-row>
+      </b-collapse>
     </div>
 
-    <div class="profile-card-body"></div>
+    <div class="profile-card-body">
+        Tasks:
+    </div>
 
      <div class="profile-card-footer" v-if="profile.roles.length">
       <div class="profile-skills">Roles:</div>
@@ -21,22 +32,52 @@
 </template>
 
 <script>
-import profileModel from '@/components/profile/profile-model'
+import itemRow from '@/components/common/item-row'
+import profileCardTools from '@/components/profile/profile-card-tools/profile-card-tools'
+
+import profileModel, { getLocation } from '@/components/profile/profile-model'
 
 export default {
   name: 'profile-card',
+
+  components: { itemRow, profileCardTools },
 
   props: {
     profile: {
       type: Object,
       default: profileModel
+    },
+    'handle-remove': {
+      type: Function,
+      default: () => {}
+    }
+  },
+
+  data () {
+    return {
+      showCollapse: false
+    }
+  },
+
+  methods: {
+    onProfileRemove (id) {
+      this.$emit('handle-remove', id)
+    },
+
+    onToggleCollaps () {
+      this.showCollapse = !this.showCollapse
+    }
+  },
+
+  computed: {
+    getLocation () {
+      return getLocation(this.profile.location)
     }
   }
 }
 </script>
 
 <style lang="scss">
-$card-offset: 25px;
 // https://vue-loader.vuejs.org/en/configurations/pre-processors.html
 .profile-card {
   position: relative;
@@ -50,28 +91,35 @@ $card-offset: 25px;
   }
 
   &-header {
-    padding: $card-offset;
+    padding: 20px 25px;
     background-color: $black-1;
     border-bottom: 2px solid $green-3;
-    display: flex;
-    align-items: center;
+
+    &-info {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &-body {
-    padding: $card-offset;
+    padding: 20px 25px;
     background-color: $black-2;
   }
 
   &-footer {
     display: flex;
     align-items: center;
-    padding: $card-offset;
+    padding: 20px 25px;
     background-color: $black-1;
     border-top: 2px solid #394d65;
   }
 
   .profile-card-tools {
     display: none;
+  }
+
+  .profile-meta-info {
+    margin-top: 10px;
   }
 
   .profile-avatar {

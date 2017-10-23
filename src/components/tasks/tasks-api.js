@@ -7,13 +7,11 @@ let tasks = taskList
 const promiseTimeout = 2000
 
 export const getTasks = () => {
-  return axios.get(`/tasks/`).then(({ data }) => data)
+  return axios.get(`/tasks`).then(({ data }) => data)
 }
 
 export const getTaskById = (id) => {
-  return wait(promiseTimeout).then(_ => {
-    return tasks.find((task) => task.id === id)
-  })
+  return axios.get(`/tasks/${id}`).then(({ data }) => data)
 }
 
 export const updateTaskById = (id, updatedTask) => {

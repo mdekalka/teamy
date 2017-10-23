@@ -99,7 +99,7 @@ const profileSchema = {
       type: 'array'
     }
   },
-  required: [ 'id', 'name', 'title', 'email', 'registered', 'phone', 'gender', 'location', 'picture', 'tasks', 'roles' ]
+  required: [ 'id', 'name', 'title', 'email', 'registered', 'phone', 'gender', 'location', 'tasks', 'picture', 'roles' ]
 }
 
 module.exports = profileSchema

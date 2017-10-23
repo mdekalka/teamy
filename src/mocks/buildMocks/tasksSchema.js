@@ -6,8 +6,11 @@ const tasksSchema = {
     type: 'object',
     properties: {
       id: {
-        type: 'string',
-        unique: true
+        type: 'number',
+        unique: true,
+        minimum: 0,
+        maximum: 9999,
+        exclusiveMinimum: true
       },
       name: {
         faker: 'hacker.phrase'

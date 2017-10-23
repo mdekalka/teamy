@@ -12,10 +12,12 @@ const randomBetween = (min, max) => {
 }
 
 tasks.forEach(task => {
-  task.assignee = profiles[randomBetween(0, profiles.length - 1)]
-})
+  const index = randomBetween(0, profiles.length - 1)
 
-console.log(tasks)
+  task.assignee = profiles[index].id
+
+  profiles[index].tasks.push(task.id)
+})
 
 fs.writeFile('./src/db.json', JSON.stringify({ profiles, tasks }), function (err) {
   if (err) {
