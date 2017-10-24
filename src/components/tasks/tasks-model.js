@@ -11,7 +11,7 @@ const taskProfileModel = {
     picture: {},
     name: {}
   },
-  reporter: {},
+  reporter: '',
   dates: {},
   time: {},
   comments: [],

@@ -4,7 +4,9 @@
       <b-row v-if="!isProfileFailed">
         <b-col col md="6">
           <header-title :title="'Edit profile:'" underline/>
-          <profile-form :form="form" @handle-profile="updateProfile" :loading="isLoading" :submit-title="'Update'" />
+          <profile-form
+            :form="form" @handle-profile="updateProfile" @change-avatar="changeAvatar" @clear-image="clearImage"
+            :loading="isLoading" :submit-title="'Update'" :filename="filename" />
         </b-col>
         <b-col col md="6">
           <header-title :title="'Profile preview:'" />
@@ -38,6 +40,8 @@ export default {
       isUpdated: false,
       isLoading: false,
       errorMessage: '',
+      filename: '',
+      originAvatar: '',
       form: profileModel
     }
   },
@@ -57,6 +61,18 @@ export default {
 
     handleFinally () {
       this.isLoading = false
+    },
+
+    changeAvatar ({ image, filename }) {
+      this.originAvatar = this.form.picture.large
+
+      this.form.picture.large = image
+      this.filename = filename
+    },
+
+    clearImage () {
+      this.form.picture.large = this.originAvatar
+      this.filename = ''
     },
 
     loadProfile () {
@@ -80,7 +96,7 @@ export default {
       updateProfileById(this.$route.params.id, profile).then(updatedProfile => {
         this.errorMessage = ''
         this.isUpdated = true
-        this.form = updatedProfile.data
+        this.form = updatedProfile
       })
       .catch(this.handleError)
       .finally(this.handleFinally)

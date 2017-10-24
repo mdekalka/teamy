@@ -26,9 +26,9 @@
 <script>
 import contentLayout from '@/components/common/content-layout'
 import profileCard from '@/components/profile/profile-card/profile-card'
-import sidePanel from '@/components/side-panel/side-panel'
+import sidePanel from '@/components/common/side-panel'
 
-import loader from '@/components/loader/loader'
+import loader from '@/components/common/loader'
 
 import { getProfiles, removeProfileById } from '@/components/profile/profile-api'
 import { extendWithColors } from '@/components/profile/profile-service'
@@ -95,19 +95,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.profile-list-page {
-  flex: 0 1 100%;
-
-  .options-panel {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-  }
-}
-
-
-</style>
-
-

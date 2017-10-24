@@ -1,7 +1,7 @@
 export const profile = {
   GET_PROFILE_FAILED: {
     key: 'GET_PROFILE_FAILED',
-    text: 'Profile cannot be loaded'
+    text: 'Profile cannot be loaded.'
   },
   CREATE_PROFILE_SUCCESS: {
     key: 'CREATE_PROFILE_SUCCESS',
@@ -21,7 +21,7 @@ export const profile = {
   },
   REDIRECT_TO_PROFILE: {
     key: 'REDIRECT_TO_PROFILE',
-    text: 'Redirecting to created user'
+    text: 'Redirecting to created user.'
   },
   DELETE_PROFILE_SUCCESS: {
     key: 'DELETE_PROFILE_SUCCESS',
@@ -33,6 +33,22 @@ export const profile = {
   }
 }
 
+export const task = {
+  FETCH_TASK_FAILED: {
+    key: 'FETCH_TASK_SUCCESS',
+    text: 'Current task cannot be loaded'
+  },
+  UPDATE_TASK_SUCCESS: {
+    key: 'UPDATE_TASK_SUCCESS',
+    text: 'Current profile was successfully updated.'
+  },
+  UPDATE_TASK_FAILED: {
+    key: 'UPDATE_TASK_FAILED',
+    text: 'Failed to update current task.'
+  }
+}
+
 export default {
-  profile
+  profile,
+  task
 }

@@ -2,7 +2,7 @@
   <b-form @submit.prevent="onSubmit" novalidate>
     <b-row>
       <b-col>
-        <b-form-group  id="profile-name" label="Name:" label-for="profile-name">
+        <b-form-group  id="profile-name" label="Name*:" label-for="profile-name">
           <!-- NOTE: vue-bootstrap components does not work well with vee-validate(needed timeout for validation - check this)  -->
           <input id="profile-name" name="profile-name" type="text" v-validate="'required'" v-model="form.name.first"
                  :class="{'form-control': true, 'is-invalid': errors.has('profile-name')}" autocomplete="off" placeholder="Enter name">
@@ -11,7 +11,7 @@
       </b-col>
 
       <b-col>
-        <b-form-group id="profile-surname" label="Surname:" label-for="profile-surname">
+        <b-form-group id="profile-surname" label="Surname*:" label-for="profile-surname">
           <input id="profile-surname" name="profile-surname" type="text" v-validate="'required'" v-model="form.name.last"
                  :class="{'form-control': true, 'is-invalid': errors.has('profile-surname')}" autocomplete="off" placeholder="Enter surname">
           <span class="small text-danger" v-show="errors.has('profile-surname')">Surname is required</span>
@@ -19,34 +19,49 @@
       </b-col>
     </b-row>
 
-    <b-form-group id="profile-title" label="Title:" label-for="profile-title">
+    <b-form-group id="profile-title" label="Title*:" label-for="profile-title">
       <input id="profile-title" name="profile-title" type="text" v-validate="'required'" v-model="form.title"
                  :class="{'form-control': true, 'is-invalid': errors.has('profile-title')}" autocomplete="off" placeholder="Enter title">
       <span class="small text-danger" v-show="errors.has('profile-title')">Title is required</span>
     </b-form-group>
 
-      <b-form-group id="profile-gender" label="Gender:" label-for="profile-gender">
-        <label class="custom-control custom-radio">
-          <input name="profile-gender" v-model="form.gender" v-validate="'required'" type="radio" autocomplete="off" class="custom-control-input" value="male">
-            <span aria-hidden="true" class="custom-control-indicator"></span>
-            <span class="custom-control-description">Male</span>
-        </label>
-        <label class="custom-control custom-radio">
-          <input name="profile-gender" v-model="form.gender" type="radio" autocomplete="off" class="custom-control-input" value="female">
-            <span aria-hidden="true" class="custom-control-indicator"></span>
-            <span class="custom-control-description">Female</span>
-        </label>
-        <span class="small text-danger" v-show="errors.has('profile-gender')">Please choose your gender</span>
-      </b-form-group>
+    <b-row>
+      <b-col>
+        <b-form-group id="profile-gender" label="Gender*:" label-for="profile-gender">
+          <label class="custom-control custom-radio">
+            <input name="profile-gender" v-model="form.gender" v-validate="'required'" type="radio" autocomplete="off" class="custom-control-input" value="male">
+              <span aria-hidden="true" class="custom-control-indicator"></span>
+              <span class="custom-control-description">Male</span>
+          </label>
+          <label class="custom-control custom-radio">
+            <input name="profile-gender" v-model="form.gender" type="radio" autocomplete="off" class="custom-control-input" value="female">
+              <span aria-hidden="true" class="custom-control-indicator"></span>
+              <span class="custom-control-description">Female</span>
+          </label>
+          <span class="small text-danger" v-show="errors.has('profile-gender')">Please choose your gender</span>
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-group id="profile-avatar" label="Avatar:" label-for="profile-avatar">
+          <image-upload :model="form.picture.large" @image-load="onImageLoad" />
+          <div v-if="!!filename">
+            Selected image {{filename}}
+            <button class="btn-icon" @click="$emit('clear-image')">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+        </b-form-group>
+      </b-col>
+    </b-row>
 
-    <b-form-group id="profile-email" label="Email:" label-for="profile-email">
+    <b-form-group id="profile-email" label="Email*:" label-for="profile-email">
       <input id="profile-email" name="profile-email" type="text" v-validate="'required|email'" data-vv-as="First Name" v-model="form.email"
                  :class="{'form-control': true, 'is-invalid': errors.has('profile-email')}" placeholder="Enter email">
       <span class="small text-danger" v-show="errors.has('profile-email:required')">Email is required</span>
       <span class="small text-danger" v-show="errors.has('profile-email:email')">Email must be valid</span>
     </b-form-group>
 
-    <b-form-group id="profile-phone" label="Phone*:" label-for="profile-phone">
+    <b-form-group id="profile-phone" label="Phone:" label-for="profile-phone">
       <input id="profile-phone" type="text" v-model="form.phone" class="form-control" placeholder="Phone(optional)">
     </b-form-group>
 
@@ -57,15 +72,27 @@
 <script>
 import profileMode from '@/components/profile/profile-model'
 
+import imageUpload from '@/components/common/image-upload/image-upload'
+
 export default {
   name: 'new-profile-form',
+
+  components: { imageUpload },
 
   props: {
     form: {
       type: Object,
       default: profileMode
     },
+    filename: {
+      type: String,
+      default: ''
+    },
     'handle-profile': {
+      type: Function,
+      default: () => {}
+    },
+    'clear-image': {
       type: Function,
       default: () => {}
     },
@@ -80,6 +107,10 @@ export default {
   },
 
   methods: {
+    onImageLoad (imageInfo) {
+      this.$emit('change-avatar', imageInfo)
+    },
+
     onSubmit () {
       this.$validator.validateAll().then((result) => {
         if (result) {

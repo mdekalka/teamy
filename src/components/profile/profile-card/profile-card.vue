@@ -2,7 +2,7 @@
   <div class="profile-card">
      <div class="profile-card-header">
        <div class="profile-card-header-info">
-          <img class="profile-avatar" :src="profile.picture.large" alt="profile avatar" />
+          <img class="profile-avatar" :src="getProfileAvatar" alt="profile avatar" />
           <div class="profile-meta">
             <div class="profile-name">{{profile.name.first}} {{profile.name.last}}</div>
             <div class="profile-title">{{profile.title}}</div>
@@ -17,9 +17,9 @@
         <item-row offset="100" title="Location:">{{getLocation}}</item-row>
       </b-collapse>
     </div>
-
-    <div class="profile-card-body">
-        Tasks:
+    <div class="profile-card-body" v-if="profile.tasks.length">
+      Tasks:
+      <profile-task v-for="task in profile.tasks" :key="task.id" :route="task.id" :name="task.name" :type="task.type" :status="task.status" />
     </div>
 
      <div class="profile-card-footer" v-if="profile.roles.length">
@@ -34,13 +34,16 @@
 <script>
 import itemRow from '@/components/common/item-row'
 import profileCardTools from '@/components/profile/profile-card-tools/profile-card-tools'
+import typeMark from '@/components/common/type-mark'
+import profileTask from '@/components/profile/profile-task/profile-task'
 
 import profileModel, { getLocation } from '@/components/profile/profile-model'
+import defaultAvatar from '@/assets/default-avatar.png'
 
 export default {
   name: 'profile-card',
 
-  components: { itemRow, profileCardTools },
+  components: { itemRow, profileCardTools, typeMark, profileTask },
 
   props: {
     profile: {
@@ -72,6 +75,10 @@ export default {
   computed: {
     getLocation () {
       return getLocation(this.profile.location)
+    },
+
+    getProfileAvatar () {
+      return this.profile.picture.large || defaultAvatar
     }
   }
 }

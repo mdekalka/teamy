@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import loader from '@/components/loader/loader'
+import loader from '@/components/common/loader'
 export default {
   name: 'content-layout',
 

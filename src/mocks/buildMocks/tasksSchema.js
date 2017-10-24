@@ -15,6 +15,9 @@ const tasksSchema = {
       name: {
         faker: 'hacker.phrase'
       },
+      description: {
+        faker: 'lorem.text'
+      },
       priority: {
         type: 'string',
         chance: {
@@ -55,6 +58,9 @@ const tasksSchema = {
       environment: {
         type: 'string'
       },
+      reporter: {
+        faker: 'name.firstName'
+      },
       assignee: null,
       dates: {
         type: 'object',
@@ -91,7 +97,7 @@ const tasksSchema = {
         type: 'array'
       }
     },
-    required: ['id', 'name', 'priority', 'type', 'status', 'sprint', 'labels', 'environment', 'assignee', 'dates', 'time', 'comments', 'history']
+    required: ['id', 'name', 'description', 'priority', 'type', 'status', 'sprint', 'labels', 'environment', 'reporter', 'assignee', 'dates', 'time', 'comments', 'history']
   }
 }
 

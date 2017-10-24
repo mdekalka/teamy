@@ -38,6 +38,8 @@ export const STATUS = {
 
 export const NO_VALUE = 'N/A'
 
+export const DEFAULT_MAX_UPLOAD_SIZE = 2 * 1024 * 1024 // byte
+
 export const SIDEMENU_ITEMS = [
   { id: 1, route: '/new-profile', icon: 'fw fa-user-plus', name: 'Create profile' },
   { id: 2, route: '/profiles', icon: 'fw fa-users', name: 'Profile list' },

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import innerLoader from '@/components/inner-loader/inner-loader'
+import innerLoader from '@/components/common/inner-loader'
 import itemRow from '@/components/common/item-row'
 
 import profileModel from '@/components/profile/profile-model'
