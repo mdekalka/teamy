@@ -21,6 +21,8 @@
               <item-row offset="100" title="Email:">{{profile.email || noValue}}</item-row>
               <item-row offset="100" title="Location:">{{fullLocation || noValue}}</item-row>
               <item-row offset="100" title="Registered Date:">{{registeredDate}}</item-row>
+              <item-row offset="100" title="Location:" />
+              <marker-map :is-shown="isShowMap" :config="map" />
             </div>
           </b-col>
         </b-row>
@@ -31,9 +33,12 @@
 
 <script>
 import moment from 'moment'
+import L from 'leaflet'
 
 import itemRow from '@/components/common/item-row'
 import profileViewTools from '@/components/profile/profile-view-tools/profile-view-tools'
+import markerMap from '@/components/common/marker-map/marker-map'
+import markerMapModel from '@/components/common/marker-map/marker-map-model'
 
 import profileModel, { getLocation } from '@/components/profile/profile-model'
 import defaultAvatar from '@/assets/default-avatar.png'
@@ -42,7 +47,7 @@ import { DATE_FORMAT, NO_VALUE } from '@/config/config'
 export default {
   name: 'profile-view',
 
-  components: { itemRow, profileViewTools },
+  components: { itemRow, profileViewTools, markerMap },
 
   props: {
     profile: {
@@ -56,6 +61,21 @@ export default {
     'on-remove': {
       type: Function,
       default: () => {}
+    }
+  },
+
+  data () {
+    return {
+      map: { ...markerMapModel, zoom: 6 }
+    }
+  },
+
+  watch: {
+    'profile.location': function (newVal) {
+      // const coords = { lat: parseFloat(newVal.latitude), lng: parseFloat(newVal.longitude) }
+      const coords = L.latLng(parseFloat(newVal.latitude), parseFloat(newVal.longitude))
+      this.map.marker.position = coords
+      this.map.marker.center = coords
     }
   },
 
@@ -80,6 +100,10 @@ export default {
 
     profileAvatar () {
       return this.profile.picture.large || defaultAvatar
+    },
+
+    isShowMap () {
+      return !!(this.profile.location.latitude && this.profile.location.longitude)
     }
   }
 }
