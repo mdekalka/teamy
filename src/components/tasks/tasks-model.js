@@ -1,21 +1,23 @@
-const taskProfileModel = {
-  name: '',
-  description: '',
-  priority: '',
-  type: '',
-  status: '',
-  sprint: '',
-  environment: '',
-  labels: [],
-  assignee: {
-    picture: {},
-    name: {}
-  },
-  reporter: '',
-  dates: {},
-  time: {},
-  comments: [],
-  history: []
+class TaskProfileModel {
+  constructor () {
+    this.name = ''
+    this.description = ''
+    this.priority = ''
+    this.type = ''
+    this.status = ''
+    this.sprint = ''
+    this.environment = ''
+    this.labels = []
+    this.assignee = {
+      picture: {},
+      name: {}
+    }
+    this.reporter = ''
+    this.dates = {}
+    this.time = {}
+    this.comments = []
+    this.history = []
+  }
 }
 
-export default taskProfileModel
+export default TaskProfileModel

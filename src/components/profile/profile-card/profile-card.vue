@@ -37,7 +37,7 @@ import profileCardTools from '@/components/profile/profile-card-tools/profile-ca
 import typeMark from '@/components/common/type-mark'
 import profileTask from '@/components/profile/profile-task/profile-task'
 
-import profileModel, { getLocation } from '@/components/profile/profile-model'
+import ProfileModel, { getLocation } from '@/components/profile/profile-model'
 import defaultAvatar from '@/assets/default-avatar.png'
 
 export default {
@@ -48,7 +48,7 @@ export default {
   props: {
     profile: {
       type: Object,
-      default: profileModel
+      default: new ProfileModel()
     },
     'handle-remove': {
       type: Function,

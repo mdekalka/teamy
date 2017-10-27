@@ -6,7 +6,8 @@
           <header-title :title="'Edit profile:'" underline/>
           <profile-form
             :form="form" @handle-profile="updateProfile" @change-avatar="changeAvatar" @clear-image="clearImage"
-            :loading="isLoading" :submit-title="'Update'" :filename="filename" />
+            :is-shown-map="true" :loading="isLoading" @marker-move="onMarkerMove" @marker-drag-end="onMarkerDragEnd" :submit-title="'Update'"
+            :filename="filename" :location-preview="locationPreview" :config="map" />
         </b-col>
         <b-col col md="6">
           <header-title :title="'Profile preview:'" />
@@ -25,9 +26,13 @@ import profilePreview from '@/components/profile/profile-preview/profile-preview
 import headerTitle from '@/components/common/header-title.vue'
 import messagePanel from '@/components/common/message-panel'
 
-import profileModel from '@/components/profile/profile-model'
+import L from 'leaflet'
+import MapModel from '@/components/common/marker-map/map-model'
+import ProfileModel, { getLocation } from '@/components/profile/profile-model'
 import { getProfileById, updateProfileById } from '@/components/profile/profile-api'
 import { profile } from '@/config/messages'
+import { getGoogleLocation } from '@/utils/api'
+import { formatGoogleAddress } from '@/utils/utils'
 
 export default {
   name: 'create-profile-page',
@@ -42,7 +47,9 @@ export default {
       errorMessage: '',
       filename: '',
       originAvatar: '',
-      form: profileModel
+      locationPreview: '',
+      form: new ProfileModel(),
+      map: new MapModel()
     }
   },
 
@@ -63,6 +70,24 @@ export default {
       this.isLoading = false
     },
 
+    onMarkerMove (event) {
+      this.map.marker.position = event
+    },
+
+    onMarkerDragEnd () {
+      this.getLocation()
+    },
+
+    getLocation () {
+      return getGoogleLocation(this.map.marker.position).then(data => {
+        this.profileLocation = formatGoogleAddress(data)
+        this.locationPreview = getLocation(this.profileLocation)
+      })
+      .catch(({ message }) => {
+        this.locationPreview = message
+      })
+    },
+
     changeAvatar ({ image, filename }) {
       this.originAvatar = this.form.picture.large
 
@@ -79,8 +104,13 @@ export default {
       this.isLoading = true
 
       getProfileById(this.$route.params.id).then(profile => {
+        const coords = L.latLng(parseFloat(profile.location.latitude), parseFloat(profile.location.longitude))
+
         this.errorMessage = ''
-        this.form = profile || profileModel
+        this.locationPreview = getLocation(profile.location)
+        this.map.marker.position = coords
+        this.map.center = coords
+        this.form = profile || new ProfileModel()
       })
       .catch(this.handleError)
       .finally(this.handleFinally)

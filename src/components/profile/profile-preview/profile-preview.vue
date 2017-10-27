@@ -19,7 +19,7 @@
 import innerLoader from '@/components/common/inner-loader'
 import itemRow from '@/components/common/item-row'
 
-import profileModel from '@/components/profile/profile-model'
+import ProfileModel from '@/components/profile/profile-model'
 import defaultAvatar from '@/assets/default-avatar.png'
 
 export default {
@@ -34,7 +34,7 @@ export default {
     },
     profile: {
       type: Object,
-      default: profileModel
+      default: new ProfileModel()
     }
   },
 

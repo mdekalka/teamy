@@ -38,11 +38,15 @@ import L from 'leaflet'
 import itemRow from '@/components/common/item-row'
 import profileViewTools from '@/components/profile/profile-view-tools/profile-view-tools'
 import markerMap from '@/components/common/marker-map/marker-map'
-import markerMapModel from '@/components/common/marker-map/marker-map-model'
+import MapModel from '@/components/common/marker-map/map-model'
 
-import profileModel, { getLocation } from '@/components/profile/profile-model'
+import ProfileModel, { getLocation } from '@/components/profile/profile-model'
 import defaultAvatar from '@/assets/default-avatar.png'
 import { DATE_FORMAT, NO_VALUE } from '@/config/config'
+
+const mapConfig = {
+  zoom: 3
+}
 
 export default {
   name: 'profile-view',
@@ -52,7 +56,7 @@ export default {
   props: {
     profile: {
       type: Object,
-      default: profileModel
+      default: new ProfileModel()
     },
     'no-value': {
       type: String,
@@ -66,16 +70,15 @@ export default {
 
   data () {
     return {
-      map: { ...markerMapModel, zoom: 6 }
+      map: { ...new MapModel(), ...mapConfig }
     }
   },
 
   watch: {
     'profile.location': function (newVal) {
-      // const coords = { lat: parseFloat(newVal.latitude), lng: parseFloat(newVal.longitude) }
       const coords = L.latLng(parseFloat(newVal.latitude), parseFloat(newVal.longitude))
       this.map.marker.position = coords
-      this.map.marker.center = coords
+      this.map.center = coords
     }
   },
 

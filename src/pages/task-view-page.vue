@@ -19,7 +19,7 @@
 
 <script>
 import { getTaskById, updateTaskById } from '@/components/tasks/tasks-api'
-import taskProfileModel from '@/components/tasks/tasks-model'
+import TaskProfileModel from '@/components/tasks/tasks-model'
 import { task } from '@/config/messages'
 
 import contentLayout from '@/components/common/content-layout'
@@ -41,10 +41,10 @@ export default {
     return {
       isLoading: false,
       isUpdating: false,
-      task: taskProfileModel,
+      task: new TaskProfileModel(),
       errorMessage: '',
       routeItems: [],
-      taskEdit: taskProfileModel
+      taskEdit: new TaskProfileModel()
     }
   },
 

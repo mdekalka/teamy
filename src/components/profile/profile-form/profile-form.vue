@@ -65,28 +65,59 @@
       <input id="profile-phone" type="text" v-model="form.phone" class="form-control" placeholder="Phone(optional)">
     </b-form-group>
 
+    <b-form-group id="profile-location" label="Location:" label-for="profile-location">
+      <div class="additional-title">{{locationPreview}}</div>
+      <marker-map :is-shown="isShownMap" :config="config" @map-click="onMapClick" @marker-move="onMarkerMove" @marker-drag-end="onMarkerDragEnd" />
+    </b-form-group>
+
     <b-button type="submit" variant="primary" :disabled="loading">{{submitTitle}}</b-button>
   </b-form>
 </template>
 
 <script>
-import profileMode from '@/components/profile/profile-model'
+import ProfileModel from '@/components/profile/profile-model'
+import MapModel from '@/components/common/marker-map/map-model'
 
 import imageUpload from '@/components/common/image-upload/image-upload'
+import markerMap from '@/components/common/marker-map/marker-map'
 
 export default {
   name: 'new-profile-form',
 
-  components: { imageUpload },
+  components: { imageUpload, markerMap },
 
   props: {
     form: {
       type: Object,
-      default: profileMode
+      default: () => new ProfileModel()
+    },
+    config: {
+      type: Object,
+      default: () => new MapModel()
+    },
+    'location-preview': {
+      type: String,
+      default: ''
     },
     filename: {
       type: String,
       default: ''
+    },
+    'is-shown-map': {
+      type: Boolean,
+      default: false
+    },
+    'map-click': {
+      type: Function,
+      default: () => {}
+    },
+    'marker-move': {
+      type: Function,
+      default: () => {}
+    },
+    'marker-drag-end': {
+      type: Function,
+      default: () => {}
     },
     'handle-profile': {
       type: Function,
@@ -109,6 +140,18 @@ export default {
   methods: {
     onImageLoad (imageInfo) {
       this.$emit('change-avatar', imageInfo)
+    },
+
+    onMapClick (event) {
+      this.$emit('map-click', event)
+    },
+
+    onMarkerMove (event) {
+      this.$emit('marker-move', event)
+    },
+
+    onMarkerDragEnd (event) {
+      this.$emit('marker-drag-end', event)
     },
 
     onSubmit () {

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import taskProfileModel from '../tasks-model'
+import TaskProfileModel from '../tasks-model'
 import { TASK_TYPES as types, TASK_STATUSES as statuses, TASK_PRIORITIES as priorities } from '@/config/config'
 import { capitalize } from '@/utils/utils'
 
@@ -44,7 +44,7 @@ export default {
   props: {
     task: {
       type: Object,
-      default: () => taskProfileModel,
+      default: new TaskProfileModel(),
       required: true
     },
     onCancel: {

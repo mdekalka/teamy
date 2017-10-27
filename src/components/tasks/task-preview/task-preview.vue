@@ -22,7 +22,7 @@
       <task-block label="Reporter:">{{task.reporter}}</task-block>
       <task-block label="Assignee:">
         <img class="task-assignee" :src="profileAvatar" />
-        {{fullName}}
+        <router-link :to="{ name: 'profile-view', params: { id: this.task.assignee.id }}">{{fullName}}</router-link>
       </task-block>
       <task-block label="Created date:">{{getCreatedDate}}</task-block>
       <task-block label="Updated date:">{{getUpdateData}}</task-block>
@@ -41,7 +41,7 @@
 <script>
 import moment from 'moment'
 
-import taskProfileModel from '@/components/tasks/tasks-model'
+import TaskProfileModel from '@/components/tasks/tasks-model'
 import { DATE_FORMAT } from '@/config/config'
 import defaultAvatar from '@/assets/default-avatar.png'
 
@@ -56,7 +56,7 @@ export default {
   props: {
     task: {
       type: Object,
-      default: taskProfileModel
+      default: new TaskProfileModel()
     },
     'is-updating': {
       type: Boolean,

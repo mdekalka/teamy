@@ -1,15 +1,3 @@
-export const URL = 'http://jsonplaceholder.typicode.com'
-
-export default {
-  url: {
-    users: `${URL}/users`,
-    photos: `${URL}/photos`,
-    albums: `${URL}/albums`,
-    comments: `${URL}/comments`,
-    posts: `${URL}/posts`
-  }
-}
-
 export const TASK_TYPES = [
   { id: 1, key: 'bug', title: 'bug' },
   { id: 2, key: 'story', title: 'story' },
@@ -51,4 +39,10 @@ export const DATE_FORMAT = {
   month: 'MMMM',
   day: 'DD',
   year: 'YYYY'
+}
+
+export const GOOGLE_MAP_URL = ({ lat, lng }) => {
+  const MAX_COORDS_SIZE = 6
+
+  return `http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat.toFixed(MAX_COORDS_SIZE)},${lng.toFixed(MAX_COORDS_SIZE)}&sensor=true`
 }

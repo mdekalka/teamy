@@ -12,7 +12,7 @@ import profileView from '@/components/profile/profile-view/profile-view'
 import messagePanel from '@/components/common/message-panel'
 
 import { getProfileById, removeProfileById } from '@/components/profile/profile-api'
-import profileModel from '@/components/profile/profile-model'
+import ProfileModel from '@/components/profile/profile-model'
 import { profile } from '@/config/messages'
 
 export default {
@@ -22,7 +22,7 @@ export default {
 
   data () {
     return {
-      profile: profileModel,
+      profile: new ProfileModel(),
       isLoading: false,
       isDeleted: false,
       errorsInfo: {

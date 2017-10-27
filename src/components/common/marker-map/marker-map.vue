@@ -1,13 +1,13 @@
 <template>
   <div class="marker-map">
-    {{config.marker.position}}
-    {{config.marker.center}}
     <div class="map-container" v-if="isShown">
-      <v-map :padding="[200, 200]" :zoom="config.zoom" :center="config.center" :min-zoom="config.minZoom" :max-zoom="config.maxZoom" v-on:l-zoomanim="onZoomChanged">
+      <v-map
+        :zoom="config.zoom" :center="config.center" :min-zoom="config.minZoom" :max-zoom="config.maxZoom"
+        @l-click="onMapClick" @l-zoomanim="onZoomChange">
         <v-tilelayer :url="config.url" :attribution="config.attribution"></v-tilelayer>
         <v-marker
           :lat-lng="config.marker.position" :key="config.marker.id" :visible="config.marker.visible" :draggable="config.marker.draggable"
-          v-on:l-move="onMarkerMoved($event)" :icon="config.marker.icon">
+          @l-move="onMarkerMove($event)" @l-dragend="onMarkerDragEnd($event)" :icon="config.marker.icon">
         </v-marker>
       </v-map>
     </div>
@@ -18,7 +18,7 @@
 import L from 'leaflet'
 import Vue2Leaflet from 'vue2-leaflet'
 
-import markerMapModel from './marker-map-model'
+import MapModel from './map-model'
 
 import icon from 'leaflet/dist/images/marker-icon.png'
 import iconShadow from 'leaflet/dist/images/marker-shadow.png'
@@ -40,13 +40,21 @@ export default {
     },
     config: {
       type: Object,
-      default: () => markerMapModel
+      default: new MapModel()
     },
     'zoom-changed': {
       type: Function,
       default: () => {}
     },
     'marker-moved': {
+      type: Function,
+      default: () => {}
+    },
+    'marker-drag-end': {
+      type: Function,
+      default: () => {}
+    },
+    'map-clicked': {
       type: Function,
       default: () => {}
     }
@@ -59,12 +67,20 @@ export default {
   },
 
   methods: {
-    onZoomChanged (event) {
+    onZoomChange (event) {
       this.$emit('zoom-changed', event.target.getZoom())
     },
 
-    onMarkerMoved (event) {
-      this.$emit('marker-moved', event.latlng)
+    onMarkerMove (event) {
+      this.$emit('marker-move', event.latlng)
+    },
+
+    onMarkerDragEnd (event) {
+      this.$emit('marker-drag-end', event)
+    },
+
+    onMapClick (event) {
+      this.$emit('map-click', event)
     }
   }
 }
