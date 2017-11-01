@@ -72,7 +72,7 @@ export default {
     },
 
     onMarkerMove (event) {
-      this.$emit('marker-move', event.latlng)
+      this.$emit('marker-move', event)
     },
 
     onMarkerDragEnd (event) {

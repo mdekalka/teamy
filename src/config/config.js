@@ -42,7 +42,5 @@ export const DATE_FORMAT = {
 }
 
 export const GOOGLE_MAP_URL = ({ lat, lng }) => {
-  const MAX_COORDS_SIZE = 6
-
-  return `http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat.toFixed(MAX_COORDS_SIZE)},${lng.toFixed(MAX_COORDS_SIZE)}&sensor=true`
+  return `http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&sensor=true`
 }

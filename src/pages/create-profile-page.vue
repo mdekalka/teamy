@@ -30,7 +30,6 @@ import messagePanel from '@/components/common/message-panel'
 
 import ProfileModel, { getLocation } from '@/components/profile/profile-model'
 import MapModel from '@/components/common/marker-map/map-model'
-import { addProfile } from '@/components/profile/profile-api'
 import { profile } from '@/config/messages'
 import { getGoogleLocation } from '@/utils/api'
 import { formatGoogleAddress } from '@/utils/utils'
@@ -46,9 +45,8 @@ export default {
       redirectTime: 2000,
       afterCreating: false,
       isRedirect: false,
-      isLoading: false,
+      timeoutId: null,
       profileLocation: {},
-      errorMessage: '',
       locationPreview: 'Click on the map to select you location',
       form: new ProfileModel(),
       map: new MapModel()
@@ -60,30 +58,28 @@ export default {
       const newProfile = { ...profile, registered: moment(), location: this.extendWithLocation(profile.location) }
 
       this.afterCreating = true
-      this.isLoading = true
 
-      addProfile(newProfile).then(profile => {
-        this.errorMessage = ''
+      this.$store.dispatch('addProfile', newProfile).then(_ => {
         this.form = new ProfileModel()
         this.isRedirect = true
+        this.$scrollTo(window)
 
-        setTimeout(_ => {
+        this.timeoutId = setTimeout(_ => {
+          clearTimeout(this.timeoutId)
+          this.timeoutId = null
+
           this.$router.push({
             name: 'profile-view',
-            params: { id: profile.id }
+            params: { id: this.profileId }
           })
         }, this.redirectTime)
-      })
-      .catch(({ message }) => {
-        this.errorMessage = message
-      })
-      .finally(_ => {
-        this.isLoading = false
       })
     },
 
     extendWithLocation (location) {
-      return {...location, ...this.profileLocation, latitude: this.map.marker.position.lat, longitude: this.map.marker.position.lng}
+      const wrappedPosition = this.map.marker.position.wrap()
+
+      return {...location, ...this.profileLocation, latitude: wrappedPosition.lat, longitude: wrappedPosition.lng}
     },
 
     onMapClick (event) {
@@ -95,7 +91,7 @@ export default {
     },
 
     onMarkerMove (event) {
-      this.map.marker.position = event
+      this.map.marker.position = event.latlng
     },
 
     onMarkerDragEnd () {
@@ -103,7 +99,7 @@ export default {
     },
 
     getLocation () {
-      return getGoogleLocation(this.map.marker.position).then(data => {
+      return getGoogleLocation(this.map.marker.position.wrap()).then(data => {
         this.profileLocation = formatGoogleAddress(data)
         this.locationPreview = getLocation(this.profileLocation)
       })
@@ -114,6 +110,10 @@ export default {
   },
 
   computed: {
+    errorMessage () {
+      return !!this.$store.getters.profileInfo.errorMessage
+    },
+
     activeMessage () {
       return {
         message: this.errorMessage ? profile.CREATE_PROFILE_FAILED.text : profile.CREATE_PROFILE_SUCCESS.text,
@@ -125,8 +125,16 @@ export default {
       return profile.REDIRECT_TO_PROFILE.text
     },
 
+    isLoading () {
+      return this.$store.getters.profileInfo.isLoading
+    },
+
     isShown () {
       return this.afterCreating && !this.isLoading
+    },
+
+    profileId () {
+      return this.$store.getters.profileInfo.createdId
     }
   }
 }

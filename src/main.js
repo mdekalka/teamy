@@ -5,7 +5,10 @@ import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import VeeValidate from 'vee-validate'
+import VueScrollTo from 'vue-scrollto'
 import axios from 'axios'
+
+import store from './store/store'
 
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -19,6 +22,13 @@ Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
 Vue.use(VeeValidate)
+Vue.use(VueScrollTo, {
+  container: '#content-page',
+  duration: 300,
+  easing: 'ease',
+  offset: 0,
+  cancelable: true
+})
 
 axios.defaults.baseURL = 'http://localhost:3000'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -27,6 +37,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

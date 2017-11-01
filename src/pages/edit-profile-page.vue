@@ -1,35 +1,37 @@
 <template>
-  <div class="edit-profile-page page">
-    <b-container fluid>
-      <b-row v-if="!isProfileFailed">
-        <b-col col md="6">
-          <header-title :title="'Edit profile:'" underline/>
-          <profile-form
-            :form="form" @handle-profile="updateProfile" @change-avatar="changeAvatar" @clear-image="clearImage"
-            :is-shown-map="true" :loading="isLoading" @marker-move="onMarkerMove" @marker-drag-end="onMarkerDragEnd" :submit-title="'Update'"
-            :filename="filename" :location-preview="locationPreview" :config="map" />
-        </b-col>
-        <b-col col md="6">
-          <header-title :title="'Profile preview:'" />
-          <profile-preview :profile="form" :is-loading="isLoading" />
-          <message-panel :show="isUpdateSuccess" :message="activeMessage.message" :type="activeMessage.type" :show-time="showTime" />
-        </b-col>
-      </b-row>
-      <message-panel :show="isProfileFailed" :message="getFailedMessage" :type="'danger'" />
-    </b-container>
-  </div>
+<content-layout class="edit-profile-page">
+  <b-container fluid>
+    <b-row v-if="!isProfileFailed">
+      <b-col col md="6">
+        <header-title :title="'Edit profile:'" underline/>
+        <profile-form
+          :form="form" @handle-profile="updateProfile" @change-avatar="changeAvatar" @clear-image="clearImage"
+          :is-shown-map="true" :loading="isLoading" @marker-move="onMarkerMove" @marker-drag-end="onMarkerDragEnd" :submit-title="'Update'"
+          :filename="filename" :location-preview="locationPreview" :config="map" />
+      </b-col>
+      <b-col col md="6">
+        <header-title :title="'Profile preview:'" />
+        <profile-preview :profile="form" :is-loading="isLoading" />
+        <message-panel :show="isUpdateSuccess" :message="activeMessage.message" :type="activeMessage.type" :show-time="showTime" />
+      </b-col>
+    </b-row>
+    <message-panel :show="isProfileFailed" :message="getFailedMessage" :type="'danger'" />
+  </b-container>
+</content-layout>
 </template>
 
 <script>
+import L from 'leaflet'
+import cloneDeep from 'lodash/cloneDeep'
+
+import contentLayout from '@/components/common/content-layout'
 import profileForm from '@/components/profile/profile-form/profile-form.vue'
 import profilePreview from '@/components/profile/profile-preview/profile-preview.vue'
 import headerTitle from '@/components/common/header-title.vue'
 import messagePanel from '@/components/common/message-panel'
 
-import L from 'leaflet'
 import MapModel from '@/components/common/marker-map/map-model'
 import ProfileModel, { getLocation } from '@/components/profile/profile-model'
-import { getProfileById, updateProfileById } from '@/components/profile/profile-api'
 import { profile } from '@/config/messages'
 import { getGoogleLocation } from '@/utils/api'
 import { formatGoogleAddress } from '@/utils/utils'
@@ -37,14 +39,12 @@ import { formatGoogleAddress } from '@/utils/utils'
 export default {
   name: 'create-profile-page',
 
-  components: { profileForm, profilePreview, headerTitle, messagePanel },
+  components: { contentLayout, profileForm, profilePreview, headerTitle, messagePanel },
 
   data () {
     return {
       showTime: 1500,
       isUpdated: false,
-      isLoading: false,
-      errorMessage: '',
       filename: '',
       originAvatar: '',
       locationPreview: '',
@@ -62,16 +62,8 @@ export default {
   },
 
   methods: {
-    handleError ({ message }) {
-      this.errorMessage = message
-    },
-
-    handleFinally () {
-      this.isLoading = false
-    },
-
     onMarkerMove (event) {
-      this.map.marker.position = event
+      this.map.marker.position = event.latlng
     },
 
     onMarkerDragEnd () {
@@ -101,19 +93,15 @@ export default {
     },
 
     loadProfile () {
-      this.isLoading = true
+      this.$store.dispatch('getProfileById', this.$route.params.id).then(_ => {
+        this.form = cloneDeep(this.profile)
 
-      getProfileById(this.$route.params.id).then(profile => {
-        const coords = L.latLng(parseFloat(profile.location.latitude), parseFloat(profile.location.longitude))
+        const coords = L.latLng(parseFloat(this.form.location.latitude), parseFloat(this.form.location.longitude))
 
-        this.errorMessage = ''
-        this.locationPreview = getLocation(profile.location)
+        this.locationPreview = getLocation(this.form.location)
         this.map.marker.position = coords
         this.map.center = coords
-        this.form = profile || new ProfileModel()
       })
-      .catch(this.handleError)
-      .finally(this.handleFinally)
     },
 
     updateProfile (profile) {
@@ -121,15 +109,11 @@ export default {
         return
       }
 
-      this.isLoading = true
-
-      updateProfileById(this.$route.params.id, profile).then(updatedProfile => {
-        this.errorMessage = ''
+      this.$store.dispatch('updateProfileById', { id: this.$route.params.id, data: profile }).then(_ => {
+        this.$scrollTo(window)
         this.isUpdated = true
-        this.form = updatedProfile
+        this.form = cloneDeep(this.profile)
       })
-      .catch(this.handleError)
-      .finally(this.handleFinally)
     }
   },
 
@@ -139,6 +123,18 @@ export default {
         message: this.errorMessage ? profile.CREATE_PROFILE_FAILED.text : profile.CREATE_PROFILE_SUCCESS.text,
         type: this.errorMessage ? 'danger' : ''
       }
+    },
+
+    profile () {
+      return this.$store.getters.profileInfo.profile
+    },
+
+    isLoading () {
+      return this.$store.getters.profileInfo.isLoading
+    },
+
+    errorMessage () {
+      return this.$store.getters.profileInfo.errorMessage
     },
 
     isProfileFailed () {

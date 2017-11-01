@@ -4,7 +4,6 @@ import Glyph from 'leaflet.icon.glyph' // eslint-disable-line
 class MapModel {
   constructor () {
     this.zoom = 2
-    this.noWrap = true
     this.center = L.latLng(51.505, -0.09)
     this.url = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
     this.attribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

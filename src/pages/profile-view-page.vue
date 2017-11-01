@@ -1,8 +1,8 @@
 <template>
   <content-layout class="profile-view-page" :load-screen="isLoading">
-    <profile-view v-if="!isLoadFailed && !isDeleteFailed && !isDeleted" :profile="profile" :delete-state="isDeleted" @on-remove="removeProfile" />
+    <profile-view v-if="!isLoadFailed && !isDeleted" :profile="profile" @on-remove="removeProfile" />
     <message-panel :show="isLoadFailed" :message="loadErrorMessage" type="danger" />
-    <message-panel :show="isDeleted || !!errorsInfo.deleteError" :message="deleteErrorInfo.message" :type="deleteErrorInfo.type" />
+    <message-panel :show="isDeleted" :message="deleteSuccessMessage" />
   </content-layout>
 </template>
 
@@ -11,8 +11,6 @@ import contentLayout from '@/components/common/content-layout'
 import profileView from '@/components/profile/profile-view/profile-view'
 import messagePanel from '@/components/common/message-panel'
 
-import { getProfileById, removeProfileById } from '@/components/profile/profile-api'
-import ProfileModel from '@/components/profile/profile-model'
 import { profile } from '@/config/messages'
 
 export default {
@@ -22,13 +20,7 @@ export default {
 
   data () {
     return {
-      profile: new ProfileModel(),
-      isLoading: false,
-      isDeleted: false,
-      errorsInfo: {
-        loadError: '',
-        deleteError: ''
-      }
+      isDeleted: false
     }
   },
 
@@ -42,32 +34,12 @@ export default {
 
   methods: {
     loadProfile () {
-      this.isLoading = true
-
-      getProfileById(this.$route.params.id).then(profile => {
-        this.errorsInfo.loadError = ''
-        this.profile = profile
-      })
-      .catch(({ message }) => {
-        this.errorsInfo.loadError = message
-      })
-      .finally(_ => {
-        this.isLoading = false
-      })
+      this.$store.dispatch('getProfileById', this.$route.params.id)
     },
 
     removeProfile (id) {
-      this.isLoading = true
-
-      removeProfileById(id).then(_ => {
-        this.errorsInfo.deleteError = ''
+      this.$store.dispatch('removeProfileById', id).then(_ => {
         this.isDeleted = true
-      })
-      .catch(({ message }) => {
-        this.this.errorsInfo.deleteError = message
-      })
-      .finally(_ => {
-        this.isLoading = false
       })
     }
   },
@@ -77,19 +49,20 @@ export default {
       return profile.GET_PROFILE_FAILED.text
     },
 
-    deleteErrorInfo () {
-      return {
-        message: this.isDeleted ? profile.DELETE_PROFILE_SUCCESS.text : profile.DELETE_PROFILE_FAILED.text,
-        type: this.isDeleted ? '' : 'danger'
-      }
+    deleteSuccessMessage () {
+      return profile.DELETE_PROFILE_SUCCESS.text
+    },
+
+    profile () {
+      return this.$store.getters.profileInfo.profile
+    },
+
+    isLoading () {
+      return this.$store.getters.profileInfo.isLoading
     },
 
     isLoadFailed () {
-      return !this.isLoading && !!this.errorsInfo.loadError
-    },
-
-    isDeleteFailed () {
-      return !this.isLoading && !!this.errorsInfo.deleteError
+      return !this.isLoading && !!this.$store.getters.profileInfo.errorMessage
     }
   }
 }

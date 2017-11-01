@@ -30,9 +30,6 @@ import sidePanel from '@/components/common/side-panel'
 
 import loader from '@/components/common/loader'
 
-import { getProfiles, removeProfileById } from '@/components/profile/profile-api'
-import { extendWithColors } from '@/components/profile/profile-service'
-
 export default {
   name: 'profile-list-page',
 
@@ -45,9 +42,6 @@ export default {
 
   data () {
     return {
-      profiles: [],
-      isLoading: false,
-      errorMessage: '',
       isPanelOpen: false
     }
   },
@@ -58,39 +52,29 @@ export default {
 
   methods: {
     loadProfiles () {
-      this.isLoading = true
-
-      getProfiles().then(profiles => {
-        this.errorMessage = ''
-        this.profiles = profiles.map(profile => {
-          return { ...profile, roles: extendWithColors(profile.roles) }
-        })
-      })
-      .catch(({ message }) => {
-        this.errorMessage = message
-      })
-      .finally(() => {
-        this.isLoading = false
-      })
+      this.$store.dispatch('getProfiles')
     },
 
     removeProfile (id) {
-      this.isLoading = true
-
-      removeProfileById(id).then(_ => {
-        this.errorMessage = ''
-        this.profiles = this.profiles.filter(profile => profile.id !== id)
-      })
-      .catch(({ message }) => {
-        this.errorMessage = message
-      })
-      .finally(_ => {
-        this.isLoading = false
-      })
+      this.$store.dispatch('removeProfileById', id)
     },
 
     onTogglePanelClick () {
       this.isPanelOpen = true
+    }
+  },
+
+  computed: {
+    profiles () {
+      return this.$store.getters.profileInfo.profiles
+    },
+
+    isLoading () {
+      return this.$store.getters.profileInfo.isLoading
+    },
+
+    errorMessage () {
+      return this.$store.getters.profileInfo.errorMessage
     }
   }
 }

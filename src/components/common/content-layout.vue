@@ -1,5 +1,5 @@
 <template>
-  <div :class="['page', loadScreen ? 'hidden': '']">
+  <div id="content-page" :class="['page', loadScreen ? 'hidden': '']">
     <slot></slot>
     <loader v-if="loadScreen" />
   </div>
