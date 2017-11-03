@@ -36,8 +36,7 @@ export default {
     query: {
       type: String,
       default: ''
-    },
-
+    }
   },
 
   data () {

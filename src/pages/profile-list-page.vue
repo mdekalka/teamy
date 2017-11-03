@@ -71,7 +71,7 @@ export default {
     },
 
     onFilterToggle (selected) {
-      this.filterRoles[selected] = true;
+      // this.filterRoles[selected] = true;
     },
 
     onClearFilter () {
