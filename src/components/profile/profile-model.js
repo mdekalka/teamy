@@ -41,4 +41,12 @@ export const getLocation = (currentLocation) => {
   return loc.join(', ')
 }
 
+export const getFullName = ({ first, last }) => {
+  if (first || last) {
+    return `${first} ${last}`
+  } else {
+    return ''
+  }
+}
+
 export default ProfileModel

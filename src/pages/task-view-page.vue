@@ -102,11 +102,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.options-panel {
-  display: flex;
-  flex-basis: 100%;
-  margin-bottom: 15px;
-}
-</style>

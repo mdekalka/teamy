@@ -5,6 +5,7 @@
       <b-col col md="6">
         <header-title :title="'Create new profile:'" underline/>
         <profile-form
+          @change-avatar="changeAvatar" @clear-image="clearImage" :filename="filename"
           :form="form" @handle-profile="createProfile" :loading="isLoading" :submit-title="'Create'" :location-preview="locationPreview"
           :is-shown-map="true" @map-click="onMapClick" @marker-move="onMarkerMove" @marker-drag-end="onMarkerDragEnd" :config="map" />
       </b-col>
@@ -46,6 +47,7 @@ export default {
       afterCreating: false,
       isRedirect: false,
       timeoutId: null,
+      filename: '',
       profileLocation: {},
       locationPreview: 'Click on the map to select you location',
       form: new ProfileModel(),
@@ -88,6 +90,18 @@ export default {
         this.map.marker = { ...this.map.marker, visible: true, position: event.latlng }
         this.getLocation()
       }
+    },
+
+    changeAvatar ({ image, filename }) {
+      this.originAvatar = this.form.picture.large
+
+      this.form.picture.large = image
+      this.filename = filename
+    },
+
+    clearImage () {
+      this.form.picture.large = this.originAvatar
+      this.filename = ''
     },
 
     onMarkerMove (event) {

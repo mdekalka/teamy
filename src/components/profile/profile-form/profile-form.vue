@@ -134,6 +134,10 @@ export default {
     'submit-title': {
       type: String,
       default: 'Submit'
+    },
+    'change-avatar': {
+      type: Function,
+      default: () => {}
     }
   },
 

@@ -19,6 +19,15 @@ export const TASK_PRIORITIES = [
   { id: 4, key: 'blocker', title: 'blocker' }
 ]
 
+export const ROLES = [
+  { id: 1, key: 1, name: 'UI Design' },
+  { id: 2, key: 2, name: 'UX Design' },
+  { id: 3, key: 3, name: 'Frontend' },
+  { id: 4, key: 4, name: 'Backend' },
+  { id: 5, key: 5, name: 'Fullstack' },
+  { id: 6, key: 6, name: 'Manager' }
+]
+
 export const STATUS = {
   OK: 'OK',
   FAIL: 'FAIL'

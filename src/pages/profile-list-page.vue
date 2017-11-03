@@ -3,17 +3,12 @@
     <b-container fluid>
       <b-row>
         <b-col>
-          <div class="options-panel">
-            <div class="btn-group">
-              <b-button class="toggle-panel" @click="onTogglePanelClick">
-                <i class="fa fa-filter" aria-hidden="true"></i>
-              </b-button>
-            </div>
-          </div>
+          <header-title :title="'Profile list:'" underline/>
+          <profile-view-filter :query="filterQuery" @on-clear="onClearFilter" @input="onFilterInput" />
         </b-col>
       </b-row>
       <b-row>
-        <b-col col md="4" v-for="profile in profiles" :key="profile.id">
+        <b-col col md="4" v-for="profile in filteredProfiles" :key="profile.id">
           <profile-card :profile="profile" :route="profile.id" @handle-remove="removeProfile" />
         </b-col>
       </b-row>
@@ -26,9 +21,12 @@
 <script>
 import contentLayout from '@/components/common/content-layout'
 import profileCard from '@/components/profile/profile-card/profile-card'
+import profileViewFilter from '@/components/profile/profile-view-filter/profile-view-filter'
 import sidePanel from '@/components/common/side-panel'
-
+import headerTitle from '@/components/common/header-title.vue'
 import loader from '@/components/common/loader'
+
+import { getFullName } from '@/components/profile/profile-model'
 
 export default {
   name: 'profile-list-page',
@@ -36,12 +34,17 @@ export default {
   components: {
     contentLayout,
     profileCard,
+    profileViewFilter,
     sidePanel,
+    headerTitle,
     loader
   },
 
   data () {
     return {
+      filterQuery: '',
+      filterTaskCount: 0,
+      filterRoles: {},
       isPanelOpen: false
     }
   },
@@ -61,12 +64,32 @@ export default {
 
     onTogglePanelClick () {
       this.isPanelOpen = true
+    },
+
+    onFilterInput (value) {
+      this.filterQuery = value
+    },
+
+    onFilterToggle (selected) {
+      this.filterRoles[selected] = true;
+    },
+
+    onClearFilter () {
+      this.filterQuery = ''
     }
   },
 
   computed: {
     profiles () {
       return this.$store.getters.profileInfo.profiles
+    },
+
+    filteredProfiles () {
+      const regExp = new RegExp(this.filterQuery, 'i')
+
+      return this.profiles.filter(profile => {
+        return regExp.test(getFullName(profile.name))
+      })
     },
 
     isLoading () {
