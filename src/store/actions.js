@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { URL } from '../config/url'
 
 import {
   LOAD_PROFILES_INIT,
@@ -23,7 +24,7 @@ export const profileActions = {
   getProfiles ({ commit }) {
     commit(LOAD_PROFILES_INIT)
 
-    return axios.get('/profiles').then((response) => {
+    return axios.get(URL.profiles).then((response) => {
       return commit(LOAD_PROFILES_SUCCESS, response.data)
     })
     .catch(err => {
@@ -34,7 +35,7 @@ export const profileActions = {
   removeProfileById ({ commit }, payload) {
     commit(REMOVE_PROFILE_INIT)
 
-    return axios.delete(`/profiles/${payload}`).then(_ => {
+    return axios.delete(`${URL.profiles}/${payload}`).then(_ => {
       return commit(REMOVE_PROFILE_SUCCESS, payload)
     })
     .catch(err => {
@@ -45,7 +46,7 @@ export const profileActions = {
   getProfileById ({ commit }, payload) {
     commit(LOAD_PROFILE_INIT)
 
-    return axios.get(`/profiles/${payload}`).then(response => {
+    return axios.get(`${URL.profiles}/${payload}`).then(response => {
       return commit(LOAD_PROFILE_SUCCESS, response.data)
     })
     .catch(err => {
@@ -56,7 +57,7 @@ export const profileActions = {
   addProfile ({ commit }, payload) {
     commit(ADD_PROFILE_INIT)
 
-    return axios.post('/profiles', payload).then(response => {
+    return axios.post(URL.profiles, payload).then(response => {
       return commit(ADD_PROFILE_SUCCESS, response.data)
     })
     .catch(err => {
@@ -67,7 +68,7 @@ export const profileActions = {
   updateProfileById ({ commit }, payload) {
     commit(UPDATE_PROFILE_INIT)
 
-    return axios.patch(`/profiles/${payload.id}`, payload.data).then(response => {
+    return axios.patch(`${URL.profiles}/${payload.id}`, payload.data).then(response => {
       return commit(UPDATE_PROFILE_SUCCESS, response.data)
     })
     .catch(err => {

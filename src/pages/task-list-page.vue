@@ -3,16 +3,16 @@
     <b-container fluid class="task-list">
       <b-row>
         <b-col>
-          <header-title :title="'User stories:'" underline/>
+          <header-title :title="'User stories:'" underline />
         </b-col>
       </b-row>
       <b-row>
         <b-col>
-           <ul>
+          <ul>
             <draggable v-model="tasks" :options="options">
               <task-item v-for="task in tasks" :key="task.id" :task="task" />
             </draggable>
-           </ul>
+          </ul>
         </b-col>
       </b-row>
     </b-container>

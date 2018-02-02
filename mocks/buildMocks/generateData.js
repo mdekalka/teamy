@@ -20,7 +20,7 @@ tasks.forEach(task => {
   profiles[index].tasks.push(cloneDeep(task))
 })
 
-fs.writeFile('./src/db.json', JSON.stringify({ profiles, tasks }), function (err) {
+fs.writeFile('./mocks/db.json', JSON.stringify({ profiles, tasks }), function (err) {
   if (err) {
     return console.log(err)
   } else {
