@@ -11,7 +11,7 @@
     "build-dev": "node build/dev-server.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
-    "test_jest": "jest",
+    "unit_jest": "jest",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "generate-data": "node mocks/buildMocks/generateData",
     "prestart-mockapi": "npm run generate-data",
@@ -118,6 +118,8 @@
   },
   "jest": {
     "moduleNameMapper": {
+      "@/([^\\.]*).vue$": "<rootDir>/src/$1.vue",
+      "@/([^\\.]*)$": "<rootDir>/src/$1.js",
       "^vue$": "vue/dist/vue.common.js"
     },
     "moduleFileExtensions": [

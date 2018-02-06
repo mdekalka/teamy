@@ -30,11 +30,11 @@
         <b-form-group id="profile-gender" label="Gender*:" label-for="profile-gender">
           <div class="custom-control custom-radio custom-control-inline">
             <input name="profile-gender" id="gender-male" v-model="form.gender" v-validate="'required'" type="radio" autocomplete="off" class="custom-control-input" value="male">
-              <label for="gender-male" class="custom-control-label">Male</label>
+            <label for="gender-male" class="custom-control-label">Male</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
             <input name="profile-gender" id="gender-female" v-model="form.gender" type="radio" autocomplete="off" class="custom-control-input" value="female">
-              <label for="gender-female" class="custom-control-label">Female</label>
+            <label for="gender-female" class="custom-control-label">Female</label>
           </div>
 
           <span class="small text-danger" v-show="errors.has('profile-gender')">Please choose your gender</span>

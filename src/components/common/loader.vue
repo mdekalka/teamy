@@ -34,6 +34,7 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: $transparent-black;
+  z-index: 999;
 
   .loader {
     display: inline-block;

@@ -1,4 +1,4 @@
-import { extendWithColors } from '@/components/profile/profile-service'
+import { extendWithColors } from '../components/profile/profile-service'
 import {
   LOAD_PROFILES_INIT,
   LOAD_PROFILES_SUCCESS,

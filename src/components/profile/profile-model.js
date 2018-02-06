@@ -43,7 +43,7 @@ export const getLocation = (currentLocation) => {
 
 export const getFullName = ({ first, last }) => {
   if (first || last) {
-    return `${first} ${last}`
+    return (`${first} ${last}`).trim()
   } else {
     return ''
   }
