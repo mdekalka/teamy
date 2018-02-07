@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 import { profileMutations } from '../../../src/store/mutations'
@@ -24,7 +24,9 @@ import {
 } from '../../../src/store/types'
 import { mockProfiles, mockErrorMessage } from '../../../__mocks__/mocks'
 
-Vue.use(Vuex)
+const localVue = createLocalVue()
+
+localVue.use(Vuex)
 
 // Mock profile service methods
 jest.mock('../../../src/components/profile/profile-service', () => {

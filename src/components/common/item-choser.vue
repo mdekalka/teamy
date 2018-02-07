@@ -12,11 +12,11 @@ export default {
   props: {
     item: {
       type: Object,
-      default: {}
+      default: () => ({})
     },
     selected: {
       type: Object,
-      default: {}
+      default: () => ({})
     },
     'on-select': {
       type: Function,

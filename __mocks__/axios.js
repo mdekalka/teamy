@@ -1,7 +1,12 @@
 import { mockRequest } from './mocks'
 
+const successRequest = () => new Promise(resolve => resolve(mockRequest))
+
 const axios = {
-  get: () => new Promise(resolve => resolve(mockRequest))
+  get: () => successRequest(),
+  post: () => successRequest(),
+  delete: () => successRequest(),
+  patch: () => successRequest()
 }
 
 export default axios
