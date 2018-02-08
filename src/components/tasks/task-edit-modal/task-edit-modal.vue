@@ -16,7 +16,7 @@
         <b-form-radio-group v-model="task.priority" :options="priorities"></b-form-radio-group>
       </b-form-group>
       <b-form-group label="Edit description*:">
-        <b-form-textarea id="edit-description" v-model.trim="task.description" :state="validateDescription" placeholder="Edit description" :rows="6" :max-rows="6">
+        <b-form-textarea id="edit-description" v-model="task.description" :state="validateDescription" placeholder="Edit description" :rows="6" :max-rows="6">
         </b-form-textarea>
         <b-form-feedback id="name-description">Description cannot be empty</b-form-feedback>
       </b-form-group>
