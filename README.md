@@ -1,6 +1,4 @@
-# teamy
-
-> A Vue.js project
+# Learn Vue/Vuex by building CRUD application.
 
 ## Build Setup
 
@@ -8,7 +6,7 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8080(will create a mock data with json server and start dev server)
 npm run dev
 
 # build for production with minification
@@ -18,10 +16,4 @@ npm run build
 npm run build --report
 
 # run unit tests
-npm run unit
-
-# run all tests
-npm test
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+npm run unit_jest
