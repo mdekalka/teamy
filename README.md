@@ -1,5 +1,7 @@
 # Learn Vue/Vuex by building CRUD application.
 
+![App preview](vue.gif?raw=true "Title")
+
 ## Build Setup
 
 ``` bash
