@@ -2,6 +2,10 @@ const jsf = require('json-schema-faker')
 const fs = require('fs')
 const cloneDeep = require('lodash/cloneDeep')
 
+jsf.extend('faker', function () {
+  return require('faker')
+})
+
 const profilesSchema = require('./profilesSchema')
 const tasksSchema = require('./tasksSchema')
 
