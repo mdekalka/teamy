@@ -25,18 +25,7 @@ const isFilteredByCount = (profile, filters) => {
 
 const isFilteredByRoles = (profile, filters) => {
   if (Object.keys(filters.filterRoles).length) {
-    let isRolesIncludes = false
-    
-    for (let i = 0; i < profile.roles.length; i++) {
-      if (this.filters.filterRoles[profile.roles[i].key]) {
-        isRolesIncludes = true
-        break
-      }
-    }
-
-    if (!isRolesIncludes) {
-      return false
-    }
+    return !profile.roles.some(role => filters.filterRoles[role.key])
   }
 }
 
@@ -52,19 +41,8 @@ export const filterProfiles = (profiles, filters) => {
       return false
     }
 
-    if (Object.keys(this.filters.filterRoles).length) {
-      let isRolesIncludes = false
-
-      for (let i = 0; i < profile.roles.length; i++) {
-        if (this.filters.filterRoles[profile.roles[i].key]) {
-          isRolesIncludes = true
-          break
-        }
-      }
-
-      if (!isRolesIncludes) {
-        return false
-      }
+    if (isFilteredByRoles(profile, filters)) {
+      return false
     }
 
     return isFilteredByName(profile, filters)

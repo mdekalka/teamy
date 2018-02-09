@@ -30,7 +30,7 @@ import sidePanel from '@/components/common/side-panel'
 import headerTitle from '@/components/common/header-title.vue'
 import loader from '@/components/common/loader'
 
-import { getFullName } from '@/components/profile/profile-model'
+import { filterProfiles } from '@/components/profile/profile-service'
 
 export default {
   name: 'profile-list-page',
@@ -104,31 +104,7 @@ export default {
     },
 
     filteredProfiles () {
-      const regExp = new RegExp(this.filters.filterQuery, 'i')
-
-      return this.profiles.filter(profile => {
-        console.log(this.filters)
-        if (profile.tasks.length < this.filters.filterTaskCount) {
-          return false
-        }
-
-        if (!isEmpty(this.filters.filterRoles)) {
-          let isRolesIncludes = false
-
-          for (let i = 0; i < profile.roles.length; i++) {
-            if (this.filters.filterRoles[profile.roles[i].key]) {
-              isRolesIncludes = true
-              break
-            }
-          }
-
-          if (!isRolesIncludes) {
-            return false
-          }
-        }
-
-        return regExp.test(getFullName(profile.name))
-      })
+      return filterProfiles(this.profiles, this.filters)
     },
 
     isLoading () {
