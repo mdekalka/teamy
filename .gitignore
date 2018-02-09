@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 test/unit/coverage
 
-src/db.json
+mocks/db.json
 
 # Editor directories and files
 .idea

@@ -48,10 +48,6 @@ export default {
     }
   },
 
-  watch: {
-    '$route': 'loadTaskById'
-  },
-
   created () {
     this.loadTaskById()
   },

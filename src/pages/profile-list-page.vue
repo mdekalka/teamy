@@ -107,6 +107,7 @@ export default {
       const regExp = new RegExp(this.filters.filterQuery, 'i')
 
       return this.profiles.filter(profile => {
+        console.log(this.filters)
         if (profile.tasks.length < this.filters.filterTaskCount) {
           return false
         }

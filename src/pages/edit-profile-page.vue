@@ -57,10 +57,6 @@ export default {
     this.loadProfile()
   },
 
-  watch: {
-    '$route': 'loadProfile'
-  },
-
   methods: {
     onMarkerMove (event) {
       this.map.marker.position = event.latlng

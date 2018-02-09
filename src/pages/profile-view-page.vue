@@ -28,10 +28,6 @@ export default {
     this.loadProfile()
   },
 
-  watch: {
-    '$route': 'loadProfile'
-  },
-
   methods: {
     loadProfile () {
       this.$store.dispatch('getProfileById', this.$route.params.id)
